@@ -6,7 +6,7 @@
         "email": "rh@gmail.com",
         "phone": "(123)123-12-32",
         "url": "rh.org",
-        "summary": "Write a short 2-3 sentence biography about yourself",
+        "summary": "Richard hails from Tulsa. He has earned degrees from the University of Oklahoma and Stanford. (Go Sooners and Cardinals!) Before starting Pied Piper, he worked for Hooli as a part time software developer. While his work focuses on applied information theory, mostly optimizing lossless compression schema of both the length-limited and adaptive variants, his non-work interests range widely, everything from quantum computing to chaos theory. He could tell you about it, but THAT would NOT be a “length-limited” conversation!",
         "location": {
             "address": "1234 Glücklichkeit Straße\nHinterhaus 5. Etage li.",
             "postalCode": "string",
@@ -20,60 +20,64 @@
         }]
     },
     "work": [{
-        "company": "",
-        "position": "",
-        "url": "",
-        "startDate": "",
-        "endDate": "",
-        "summary": "",
-        "highlights": []
+        "company": "Pied Piper",
+        "position": "CEO/President",
+        "url": "http://piedpiper.com/",
+        "startDate": "Dec 2013",
+        "endDate": "Dec 2014 ",
+        "summary": "Pied Piper is a multi-platform technology based on a proprietary universal compression algorithm that has consistently fielded high Weisman Scores™ that are not merely competitive, but approach the theoretical limit of lossless compression.",
+        "highlights": ["Build an algorithm for artist to detect if their music was violating copy right infringement laws", "Successfully won Techcrunch Disrupt", "Optimized an algorithm that holds the current world record for Weisman Scores"]
     }],
     "volunteer": [{
-        "organization": "",
-        "position": "",
+        "organization": "CoderDojo",
+        "position": "Teacher",
         "url": "",
-        "startDate": "",
-        "endDate": "",
-        "summary": "",
-        "highlights": []
+        "startDate": "Jan 2012 ",
+        "endDate": "Jan 2013",
+        "summary": "Global movement of free coding clubs for young people.",
+        "highlights": ["Awarded 'Teacher of the Month'"]
     }],
     "education": [{
-        "institution": "",
-        "area": "",
-        "studyType": "",
-        "startDate": "",
-        "endDate": "",
-        "gpa": "",
-        "courses": []
+        "institution": "University of Oklahoma",
+        "area": "Information Technology",
+        "studyType": "Bachelor",
+        "startDate": "Jun 2011",
+        "endDate": " Jan 2014",
+        "gpa": "4.0",
+        "courses": ["DB1101 - Basic SQL", "CS2011 - Java Introduction"]
     }],
     "awards": [{
-        "title": "",
-        "date": "",
-        "awarder": "",
-        "summary": ""
+        "title": "Digital Compression Pioneer Award",
+        "date": "Nov 2014",
+        "awarder": "Techcrunch",
+        "summary": "There is no spoon."
     }],
     "publications": [{
-        "name": "",
-        "publisher": "",
-        "releaseDate": "",
-        "url": "",
-        "summary": ""
+        "name": "Video compression for 3d media",
+        "publisher": "Hooli",
+        "releaseDate": "Oct 01, 2014",
+        "url": "http://en.wikipedia.org/wiki/Silicon_Valley_(TV_series)",
+        "summary": "Innovative middle-out compression algorithm that changes the way we store data."
     }],
     "skills": [{
-        "name": "",
-        "level": "",
-        "keywords": []
+        "name": "Web Development",
+        "level": "master",
+        "keywords": ["HTML", "CSS", "Javascript"]
+    }, {
+        "name": "Compression",
+        "level": "master",
+        "keywords": ["Mpeg", "MP4", "GIF"]
     }],
     "languages": [{
-        "name": "",
-        "level": ""
+        "name": "English",
+        "level": "Native speaker"
     }],
     "interests": [{
-        "name": "",
-        "keywords": []
+        "name": "Wildlife",
+        "keywords": ["Ferrets", "Unicorns"]
     }],
     "references": [{
-        "name": "",
-        "reference": ""
+        "name": "Erlich Bachman",
+        "reference": "It is my pleasure to recommend Richard, his performance working as a consultant for Main St. Company proved that he will be a valuable addition to any company."
     }]
 }
