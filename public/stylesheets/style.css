@@ -179,27 +179,21 @@ html, body {
 .custom-container {
   min-height: 720px;
   padding: 0px;
-  color: white;
+  color: black;
+  border-top: 1px solid lightgray;
 }
 .custom-container h2 {
   text-align: center;
   margin: 64px;
 }
 .custom-container h2 label {
-  border: 2px solid white;
+  border: 2px solid black;
   padding: 4px 12px;
 }
 .custom-container p {
   padding: 24px;
 }
 
-#about {
-  background: #684894;
-}
-
-#projects {
-  background: #2B89CD;
-}
 #projects .project {
   padding: 12px;
   text-align: center;
@@ -232,9 +226,6 @@ html, body {
   word-wrap: default;
 }
 
-#people {
-  background: #DD4F1B;
-}
 #people .people-group {
   border: 1px solid lightgray;
 }
@@ -261,10 +252,6 @@ html, body {
 }
 #people .people-group .people .card-custom .content .meta {
   color: gray;
-}
-
-#about {
-  background: #198E7C;
 }
 
 footer {
