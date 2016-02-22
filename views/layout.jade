@@ -11,26 +11,26 @@ html
 	body
 		#vertical-nav
 			.first-class
-				.nav-item
+				a.nav-item(href='#about')
 					.icon-holder
 						i.icon.radio
-					label 简介
-				.nav-item
+					span 简介
+				a.nav-item(href='#projects')
 					.icon-holder
 						i.icon.radio.selected
-					label 项目
-				.nav-item
+					span 项目
+				a.nav-item(href='#people')
 					.icon-holder
 						i.icon.radio.selected
-					label 人员
-				.nav-item
+					span 人员
+				a.nav-item(href='#people')
 					.icon-holder
 						i.icon.radio.selected
-					label 活动
-				.nav-item
+					span 活动
+				a.nav-item(href='#people')
 					.icon-holder
 						i.icon.radio
-					label FAQ
+					span FAQ
 		#body.col-md-12.col-lg-8.col-lg-offset-2
 			include header
 			//.ui.steps
