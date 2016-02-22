@@ -1,0 +1,216 @@
+@charset "utf-8"
+
+$font-stack: Helvetica, Tahoma, Arial, STXihei, “华文细黑”, “Microsoft YaHei”, “微软雅黑”, SimSun, “宋体”, Heiti, “黑体”, sans-serif
+$prim-color: #FFF
+$header-height: 216px
+$html-bg: #F4F2F0
+
+html,body
+	background: $html-bg
+	font-family: $font-stack
+
+//.box-indicator
+	//border: 2px solid black
+#header
+	color: gray
+	height: $header-height
+	border-bottom: 1px solid lightgray
+	overflow: hidden
+
+#body
+	padding: 0px
+	background: white
+	padding-bottom: 24px
+	margin-top: 32px
+	box-shadow: 0px -12px 24px -16px rgba(0,0,0,0.4)
+#main
+	padding: 0px
+#news
+	border-left: 1px solid lightgray
+#site-path
+	width: 100%
+	padding: 8px
+.ui.steps
+	.step
+		padding: 8px 12px 8px 24px
+
+.full-height
+	height: 100%
+
+.custom-header
+	padding: 12px
+	//border-radius: 5px
+	.logo
+		height: 48px
+	.site-title
+		padding: 12px 24px
+
+.header-bg
+	width: 100%
+	height: $header-height
+	position: absolute
+	top: 24px
+	left: 0px
+	filter: blur(5px)
+	overflow: hidden
+	background-image: url('/images/000.jpg')
+	background-size: cover
+	.filter
+		width: 100%
+		height: 100%
+		opacity: 0.4
+		background: black
+
+.header-images
+	height: $header-height
+	position: relative
+	right: 0px
+	padding: 0px
+	background-image: url('/images/000.jpg')
+	background-size: cover
+	.filter
+		position: absolute
+		height: $header-height
+		width: 30%
+		height: 400%
+		top: calc(216px - 200%)
+		left: -15%
+		transform: rotate(20deg)
+		.left
+			display: inline-block
+			width: 100%
+			position: absolute
+			left: -50%
+			height: 100%
+			background: white
+		.right
+			display: inline-block
+			position: absolute
+			left: calc(50% - 1px)
+			width: 50%
+			height: 100%
+			background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0.7), rgba(255,255,255,0.45), rgba(255,255,255,0.25), rgba(255,255,255,0.1), rgba(255,255,255,0))
+
+.my-navbar
+	float: left
+	.nav-item
+		font-size: 18px
+		font-weight: 600
+		padding: 8px 12px
+		margin: 4px 12px
+		display: inline-block
+		cursor: pointer
+		border-bottom: 1px solid gray
+	.nav-item:hover
+		color: black
+		border-bottom: 2px solid black
+
+#vertical-nav
+	position: fixed
+	left: 0px
+	top: calc(50% - 200px)
+	.first-class
+		.nav-item
+			font-size: 18px
+			margin: 0px 24px
+			padding: 24px 8px
+			cursor: pointer
+			border-left: 3px solid gray
+			.icon-holder
+				display: inline-block
+				i
+					font-size: 16px
+					margin: 0px
+					position: relative
+					background: $html-bg
+					top: calc(50% - 8px)
+					left: -18px
+		.nav-item:before
+			height: 100%
+			left: 4px
+
+#slr-container
+	height: 540px
+	.item
+		cursor: pointer
+		img:hover
+			filter: blur(5px)
+
+.custom-container
+	min-height: 720px
+	padding: 0px
+	color: white
+	h2
+		text-align: center
+		margin: 64px
+		label
+			border: 2px solid white
+			padding: 4px 12px
+	p
+		padding: 24px
+
+#about
+	background: #684894
+
+#projects
+	background: #2B89CD
+	.project
+		padding: 12px
+		text-align: center
+		.card-box
+			width: 100%
+			height: 384px
+			border: 1px solid lightgray
+			border-radius: 4px
+			background: white
+			overflow: hidden
+			.image
+				height: 289px
+				img
+					height: 100%
+			.content
+				padding-top: 12px
+				a.header
+					font-size: 18px
+				.meta
+					color: gray
+				p.description
+					color: black
+					word-wrap: default
+#people
+	background: #DD4F1B
+	.people-group
+		border: 1px solid lightgray
+		.people
+			padding: 12px
+			text-align: center
+			.card-custom
+				width: 100%
+				height: 324px
+				border: 1px solid lightgray
+				border-radius: 4px
+				background: white
+				overflow: hidden
+				.image
+					height: 269px
+					img
+						width: 100%
+				.content
+					a.header
+						font-size: 18px
+					.meta
+						color: gray
+
+#about
+	background: #198E7C
+footer
+	background: #333
+	color: lightgray
+	margin-top: 24px
+	padding: 8px
+	border-top: 1px solid black
+	div
+		text-align: center
+		a.item
+			font-size: 12px
+			color: lightgray

@@ -1,0 +1,79 @@
+{
+    "basics": {
+        "name": "Richard Hendriks",
+        "label": "Programmer",
+        "picture": "url",
+        "email": "rh@gmail.com",
+        "phone": "(123)123-12-32",
+        "url": "rh.org",
+        "summary": "Write a short 2-3 sentence biography about yourself",
+        "location": {
+            "address": "1234 Glücklichkeit Straße\nHinterhaus 5. Etage li.",
+            "postalCode": "string",
+            "city": "string",
+            "region": "string"
+        },
+        "profiles": [{
+            "network": "string e.g. Facebook or Twitter",
+            "username": "string",
+            "url": "string"
+        }]
+    },
+    "work": [{
+        "company": "",
+        "position": "",
+        "url": "",
+        "startDate": "",
+        "endDate": "",
+        "summary": "",
+        "highlights": []
+    }],
+    "volunteer": [{
+        "organization": "",
+        "position": "",
+        "url": "",
+        "startDate": "",
+        "endDate": "",
+        "summary": "",
+        "highlights": []
+    }],
+    "education": [{
+        "institution": "",
+        "area": "",
+        "studyType": "",
+        "startDate": "",
+        "endDate": "",
+        "gpa": "",
+        "courses": []
+    }],
+    "awards": [{
+        "title": "",
+        "date": "",
+        "awarder": "",
+        "summary": ""
+    }],
+    "publications": [{
+        "name": "",
+        "publisher": "",
+        "releaseDate": "",
+        "url": "",
+        "summary": ""
+    }],
+    "skills": [{
+        "name": "",
+        "level": "",
+        "keywords": []
+    }],
+    "languages": [{
+        "name": "",
+        "level": ""
+    }],
+    "interests": [{
+        "name": "",
+        "keywords": []
+    }],
+    "references": [{
+        "name": "",
+        "reference": ""
+    }]
+}
