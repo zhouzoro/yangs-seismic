@@ -1,0 +1,15 @@
+.custom-container.container-fluid
+	if editmode
+		.edit-controls(data-type='about')
+			.edit-control.edit-btn.labeled.icon.ui.button.blue edit
+				i.icon.edit
+			.edit-control.save-btn.labeled.icon.ui.button.green save
+				i.icon.save
+	#about.content.editable!= about
+		//h2
+			label about
+		//p
+			|The Cache interface of the ServiceWorker API represents the storage for Request / Response object pairs that are cached as part of the ServiceWorker life cycle.
+			|A domain can have multiple, named Cache objects, whose contents are entirely under the control of service workers.
+			|You are responsible for implementing how the ServiceWorker script handles Cache updates. Items in a Cache do not get updated unless explicitly requested; they don’t expire unless deleted. Use CacheStorage.open(cacheName) to open a specific named Cache object and then call any of the Cache methods to maintain the Cache.
+			|You are also responsible for periodically purging cache entries. Each browser has a hard limit on the amount of cache storage that a given service worker can use. The browser does its best to manage disk space, but it may delete the Cache storage for an origin.  The browser will generally delete all of the data for an origin or none of the data for an origin. Make sure to version caches by name and use the caches only from the version of the ServiceWorker that they can safely operate on. See Deleting old caches for more information.

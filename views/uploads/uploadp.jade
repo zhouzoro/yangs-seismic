@@ -1,0 +1,45 @@
+#upload-people.container-fluid
+	.row
+		.card-wrapper
+			.upload-btn.ui.labeled.icon.button.basic.green(onclick='uploadPeople()')
+				i.icon.write
+				span Upload
+			.card
+				.profile-card
+					#profile-pic.profile-pic
+						#edit-pic.media-object.center-block
+							#pic-loader
+							label.btn change
+						img.media-object.img-circle.center-block(src='/images/user.png' alt='profile picture')
+					.contact-details
+						.name-and-profession
+							h3.text-bolder.name
+								.ui.input.transparent
+									input#input-name(type="text" name="name" placeholder="John Doe" required)
+							h5.text-muted(itemprop='label')
+								.ui.input.transparent
+									input#input-title(type="text" name="title" placeholder="Title" required)
+						.detail
+							span.icon
+								i.fa.fa-lg.fa-map-marker
+							span.info
+								.ui.input.transparent
+									input#input-office(type="text" name="office" placeholder="Office location" required)
+						.detail
+							span.icon
+								i.fa.fa-lg.fa-envelope
+							span.info
+								.ui.input.transparent
+									input#input-email(type="text" name="email" placeholder="email address" required)
+						.detail
+							span.icon
+								i.fa.fa-lg.fa-phone
+							span.info
+								.ui.input.transparent
+									input#input-phone(type="text" name="phone" placeholder="office number" required)
+	.row
+		.card-wrapper
+			.card.background-card
+				.mce-container
+					#input-body details
+				//textarea#input-body(name='body' rows='20' required onload='mce()')

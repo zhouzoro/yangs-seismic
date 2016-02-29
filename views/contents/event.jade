@@ -1,0 +1,19 @@
+#event.custom-container.container-fluid
+	h2
+		label event
+	if event && event[0]
+		each evt, index in event
+			.event.col-md-4
+				.card-box
+					.image
+						img(src=evt.cover)
+					.content
+						a.header= evt.title
+						.meta
+							span.date= evt.date
+						p.description= evt.quote
+	if editmode
+		.event.col-md-4.edit-add
+			.card-box
+				.add-btn(data-url='/add_event' data-type='event')
+					i.fa.fa-plus-square

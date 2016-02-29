@@ -86,7 +86,7 @@ gulp.task('watch', function() {
   gulp.watch('public/javascripts/raw/*.js', ['scripts']);
 
   // Watch image files
-  gulp.watch('public/images/*', ['images']);
+  //gulp.watch('public/images/*', ['images']);
 
 });
 

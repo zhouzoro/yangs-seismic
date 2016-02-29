@@ -1,0 +1,160 @@
+extends ../layout
+
+block content
+	//schema details can be found at 'http://json-schema.org/draft-04/schema#', not all itemprops are properly addressed
+	#person.container-fluid(itemscope itemtype='http://json-schema.org/draft-04/schema#')
+		.row
+			.card-wrapper
+				button.ui.labeled.icon.button(type=button onclick='startEdit()')
+					i.icon.write
+					span Edit
+				.card
+					.profile-card(itemscope itemprop='basics')
+						-var bs = person.basics
+						.profile-pic
+							img.media-object.img-circle.center-block(src= bs.picture alt= bs.name itemprop='image')
+						.contact-details
+							.name-and-profession
+								h3.text-bolder.name(itemprop='name')= bs.name
+								h5.text-muted(itemprop='label')= bs.title
+							.detail
+								span.icon
+									i.fa.fa-lg.fa-map-marker
+								span.info= bs.location.address + ', ' + bs.location.city + ', ' + bs.location.region
+							.detail
+								span.icon
+									i.fa.fa-lg.fa-envelope
+								span.info
+									a(href='mailto:' + bs.email itemprop='email')= bs.email
+							.detail
+								span.icon
+									i.fa.fa-lg.fa-phone
+								a.link-disguise.info(href='tel://' + person.telephone, itemprop='telephone')= bs.phone
+		.row
+			.card-wrapper
+				.card.background-card
+					#about(itemprop='summary')
+						h4
+							span.fa.fa-lg.fa-user
+							span.title About
+						.card-nested
+							p= person.basics.summary
+					#work-experience(itemscope itemprop='work')
+						h4
+							span.fa.fa-lg.fa-pencil-square-o
+							span.title Work Experience
+						ul.list-unstyled
+							each wk, index in person.work
+								li.card-nested
+									.content.has-sidebar
+										p.clear-margin-sm
+											strong(itemprop='position')= wk.position
+											a(itemprop='company')(href= wk.url target='_blank')= wk.company
+										p.text-muted
+											small
+												i.fa.fa-clock-o.icon-left
+												span.space-right= wk.startDate + ' - ' + wk.endDate
+										p= wk.summary
+										ul
+											each hl, index in wk.highlights
+												li= hl
+					#skills
+						h4
+							span.fa.fa-lg.fa-code
+							span.title Skills
+						ul.list-unstyled
+							each sk, index in person.skills
+								li.card-nested.skill.master
+									strong= sk.name + '(' + sk.level + '):'
+									each kw, index in sk.keywords
+										span.enumeration= kw
+					#education
+						h4
+							span.fa.fa-lg.fa-mortar-board
+							span.title Education
+						ul.list-unstyled
+							each ed, index in person.education
+								li.card-nested
+									.content.has-sidebar
+										p.clear-margin-sm
+											strong= ed.area + ', ' + ed.studyType + ', ' + ed.institution
+										p.text-muted
+											small= ed.startDate + ' - ' + ed.endDate
+											i= ed.gpa
+											.space-top.labels
+												each cr, index in ed.courses
+													span.label.label-keyword= cr
+					#awards
+						h4
+							span.fa.fa-lg.fa-trophy
+							span.title Awards
+						ul.list-unstyled
+							each aw, index in person.awards
+								li.card-nested
+									.content.has-sidebar
+										p.clear-margin-sm(itemprop='award')
+											strong= aw.title
+										p.text-muted
+											small= 'Awarded on:' + aw.date
+											p= aw.summary
+					#volunteer
+						h4
+							span.fa.fa-lg.fa-child
+							span.title Volunteer Work
+						ul.list-unstyled
+							each vr, index in person.volunteer
+								li.card-nested
+									.content.has-sidebar
+										p.clear-margin-sm
+											strong= vr.position + ', ' + vr.organization
+										p.text-muted
+											small= vr.startDate + ' - ' + vr.endDate
+										p= vr.summary
+										ul
+											each hl, index in vr.highlights
+												li= hl
+					#publications
+						h4
+							span.fa.fa-lg.fa-book
+							span.title Publications
+						ul.list-unstyled
+							each pb, index in person.publications
+								li.card-nested
+									.content.has-sidebar
+										p.clear-margin-sm
+											strong
+												a(href= pb.website, target='_blank')= pb.name
+										p.text-muted
+											small= 'Published on:' + pb.releaseDate + ', ' + pb.publisher
+										p.clear-margin= pb.summary
+					#interests
+						h4
+							span.fa.fa-lg.fa-heart
+							span.title Interests
+						ul.list-unstyled
+							each ie, index in person.interests
+								li.card-nested
+									p
+										strong= ie.name
+									.space-top.labels
+										each kw in ie.keywords
+											span.label.label-keyword= kw
+					#references
+						h4
+							span.fa.fa-lg.fa-thumbs-up
+							span.title References
+						ul.list-unstyled
+							each rf, index in person.references
+								li.card-nested
+									p
+										strong= rf.name
+									blockquote.quote
+										p.clear-margin= rf.reference
+					#languages
+						h4
+							span.fa.fa-lg.fa-language
+							span.title Languages
+						p.card-nested
+							each lg, index in person.languages
+								span.enumeration
+									strong= lg.name + '(' + lg.level + ')'

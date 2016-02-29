@@ -1,0 +1,51 @@
+#projects.custom-container.container-fluid
+	h2
+		label projects
+	if project && project[0]
+		each pj, index in project
+			.project.col-md-4
+				.card-box
+					.image
+						img(src=pj.cover)
+					.content
+						a.header= pj.title
+						.meta
+							span.date= pj.date
+						p.description= pj.quote
+
+	.project.col-md-4
+		.card-box
+			.image
+				img(src='/images/000.jpg')
+			.content
+				a.header Projects Aero
+				.meta
+					span.date Started in 2016
+				p.description descriptiondescriptiondescriptiondescription
+			.extra.content
+	.project.col-md-4
+		.card-box
+			.image
+				img(src='/images/001.jpg')
+			.content
+				a.header Projects Blob
+				.meta
+					span.date Started in 2016
+				p.description descriptiondescriptiondescriptiondescription
+			.extra.content
+	.project.col-md-4
+		.card-box
+			.image
+				img(src='/images/002.jpg')
+			.content
+				a.header Projects Cli
+				.meta
+					span.date Started in 2016
+				p.description descriptiondescriptiondescriptiondescription
+			.extra.content
+	if editmode
+		.project.col-md-4.edit-add
+			.card-box
+				.add-btn(data-url='/add/uploadproj' data-type='project')
+					i.fa.fa-plus-square
+

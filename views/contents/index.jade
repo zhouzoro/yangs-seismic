@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+	#slr-container
+		#slr.carousel.slide(data-ride="carousel")
+			#slr-inner.carousel-inner(role="listbox")
+				.item.active
+					img.slr-img.cursor-pointer(src=('/images/000.jpg') alt='slider image' onclick='')
+					.carousel-caption
+						h3 doc.title
+						label.slabelextra
+							a.slabeldate doc.date.substr(0, 10)
+							label.slabelsource doc.source
+				.item
+					img.slr-img.cursor-pointer(src=('/images/001.jpg') alt='slider image' onclick='')
+					.carousel-caption
+						h3 doc.title
+						label.slabelextra
+							a.slabeldate doc.date.substr(0, 10)
+							label.slabelsource doc.source
+				.item
+					img.slr-img.cursor-pointer(src=('/images/002.jpg') alt='slider image' onclick='')
+					.carousel-caption
+						h3 doc.title
+						label.slabelextra
+							a.slabeldate doc.date.substr(0, 10)
+							label.slabelsource doc.source
+	include about
+	include news
+	include event
+	include research
+	include projects
+	include people

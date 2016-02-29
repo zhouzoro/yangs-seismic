@@ -1,0 +1,20 @@
+#news.custom-container.container-fluid
+	h2
+		label news
+	if news && news[0]
+		each nw, index in news
+			.news.col-md-4
+				.card-box
+					.image
+						img(src=nw.cover)
+					.content
+						a.header= nw.title
+						.meta
+							span.date= nw.date
+						p.description= nw.quote
+	if editmode
+		.news.col-md-4.edit-add
+			.card-box
+				.add-btn(data-url='/add_news' data-type='news')
+					i.fa.fa-plus-square
+

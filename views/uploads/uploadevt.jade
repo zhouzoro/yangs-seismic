@@ -1,0 +1,37 @@
+link(rel='stylesheet' href='/stylesheets/upload.min.css')
+#loader.ui.modal.basic
+	.content
+		.ui.text.loader Loading
+		label.loader
+form#frm(method="post" data-type='evt' action="/tinymce" enctype="multipart/form-data")
+	#ul_title
+		.title.ui.transparent.input
+			input#input-title.title(name="title" rows="1" autofocus required placeholder="输入标题")
+	#date_src
+		.ui.transparent.input 日期
+			input#input-date(type="Date" name="date" value='2016-01-01' required)
+		.ui.transparent.input
+			input#input-source(type="text" name="source" placeholder="输入作者/来源" required)
+	#frm-body
+		textarea#input-body(name='body' rows='20' required)
+	#att
+		input#input-att(type='text' name='att' hidden)
+#app.upload-att.divided(onload='attVue()')
+	.att(v-for='(index, att) in atts')
+		button.ui.icon.button.red.small.basic(v-on:click='remove(att)')
+			i.icon.trash
+		label 附件.{{ index + 1 }}:
+		.ui.transparent.input
+			input.att-name(type="text" placeholder="{{ att.name }}" v-model='att.name')
+		.ui.bottom.attched.progress.tiny
+			.bar(v-bind:style='{ width: att.progress, background: att.progress == "100%" ? "#008800" : "#000088"}')
+input#input-img(type='file' hidden)
+#ops
+	button#btn-upload.ui.labeled.icon.button.basic.teal.small 提交
+		i.icon.send.outline
+	button#btn-img.news-only.ui.labeled.icon.button.basic.orange.small 图片
+		i.icon.file.image.outline
+	button#btn-att.news-only.ui.labeled.icon.button.basic.blue.small 附件
+		i.icon.attach
+#tips tips:
+	p 可直接拖放插入图片
