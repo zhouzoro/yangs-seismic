@@ -44,7 +44,6 @@ router.use(function(req, res, next) {
     winston.info(GetCurrentDatetime(), ': request from: ', req.ip, ', req.url: ', req.originalUrl);
     next();
 });
-
 function doADump() {
     shell.exec('mongodump --db yss --port 65123 --out /home/web/projects/running/yangs-seismic/yangs-seismic-master/mongodump-' + GetCurrentDatetime());
 };
@@ -156,7 +155,7 @@ MongoClient.connectAsync(url).then(function(db) {
             var tempcoll = db.collection(collname);
             return new Promise(function(fulfill, reject) {
 
-                posts.findAsync({}).then(function(cursor) {
+                tempcoll.findAsync({}).then(function(cursor) {
                     return cursor.toArrayAsync()
                 }).then(function(docs) {
                     docs = _.sortBy(docs, sorter.iteratee).reverse();
@@ -222,6 +221,7 @@ MongoClient.connectAsync(url).then(function(db) {
                 console.log(data);
 
                 Promise.all(allDataOp).then(function(val) {
+                	console.log(val[3]);
                     res.render('contents/index', {
                         news: val[0],
                         event: val[1],
@@ -229,7 +229,7 @@ MongoClient.connectAsync(url).then(function(db) {
                         people: val[3],
                         research: val[4],
                         about: data,
-                        editmode: true
+                        editmode: editmode
                     });
                 }).catch(function(err) {
                     res.send(err);
@@ -399,7 +399,7 @@ MongoClient.connectAsync(url).then(function(db) {
                     }).then(function(result) {
                         winston.info('deleted:' + result);
                         res.json({
-                            result: true
+                            url: '/edit?editor=zhang_fan&key=yangs_seismic_lab_2016'
                         });
                     })
                 }).catch(function(err) {

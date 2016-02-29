@@ -41,9 +41,9 @@ $('.edit-controls').each(function() {
         var loader = $('#loader').find('.loader');
         loader.text('ing!');
         $.post('/delete', { _id: editor.data('id'), doctype: editor.data('type') }, function(res) {
-            if (res.result) {
+            if (res.url) {
                 loader.text('done and done!');
-                window.location = '/'
+                window.location = res.url;
             } else {
                 loader.text('oops, failed...somehow');
                 $('#loader').modal('hide');

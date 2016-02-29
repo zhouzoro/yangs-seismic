@@ -2,6 +2,16 @@
 	h2
 		label people
 	.people-group.container-fluid
+		if people && people[0]
+			each pp, index in people
+				.people.col-md-4.col-lg-3
+					.card-box
+						.image
+							img.media-object.img-circle.center-block(src= pp.picture)
+						.content
+							a.header(href='/people?_id=' + pp._id)= pp.name
+							.meta
+								span.label= pp.title
 		.people.col-md-4.col-lg-3
 			.card-box
 				.image

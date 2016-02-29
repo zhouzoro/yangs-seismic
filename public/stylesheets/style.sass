@@ -177,13 +177,18 @@ html,body
 	cursor: pointer
 .upload-frm
 	position: relative
-.add-btn
-	cursor: pointer
-	margin: auto
-	position: relative
-	top: calc(50% - 26px)
-	font-size: 48px
-	color: green
+.edit-add
+	.card-box
+		.add-btn
+			cursor: pointer
+			margin-left: auto
+			margin-right: auto
+			position: relative
+			top: calc(50% - 26px)
+			font-size: 48px
+			color: green
+			text-align: center
+
 .inline-img
 	max-width: 100%
 .mce-container
@@ -200,47 +205,35 @@ html,body
 		padding: 12px
 		text-align: center
 		.card-box
-			width: 100%
-			height: 384px
-			border: 1px solid lightgray
-			border-radius: 4px
-			background: white
-			overflow: hidden
-			.image
-				height: 289px
-				img
-					height: 100%
 			.content
-				padding-top: 12px
-				a.header
-					font-size: 18px
-				.meta
-					color: gray
 				p.description
 					color: black
 					word-wrap: default
+.card-box
+	width: 100%
+	height: 324px
+	border: 1px solid lightgray
+	border-radius: 4px
+	background: white
+	overflow: hidden
+	.image
+		height: 232px
+		img
+			width: 100%
+			max-width: 232px
+			height: width
+			max-height: 232px
+	.content
+		a.header
+			font-size: 18px
+		.meta
+			color: gray
 #people
 	.people-group
 		border: 1px solid lightgray
 		.people
 			padding: 12px
 			text-align: center
-			.card-box
-				width: 100%
-				height: 324px
-				border: 1px solid lightgray
-				border-radius: 4px
-				background: white
-				overflow: hidden
-				.image
-					height: 269px
-					img
-						width: 100%
-				.content
-					a.header
-						font-size: 18px
-					.meta
-						color: gray
 #profile-pic
 	padding: 0px 56px 14px 0px
 	#edit-pic

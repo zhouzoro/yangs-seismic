@@ -1,10 +1,13 @@
 header#header
 	//.header-bg
 		.filter
+	-var clickhome = '"/"'
+	if editmode
+		-clickhome = '"/edit?editor=zhang_fan&key=yangs_seismic_lab_2016"'
 	.custom-header.col-xs-12.col-sm-8.col-md-8.col-lg-7
-		.click-home.logo(onclick='window.location="/"')
+		.click-home.logo(onclick='window.location=' + clickhome)
 			|logo here
-		h1.site-title.click-home(onclick='window.location="/"') Yang's Seismic Lab
+		h1.site-title.click-home(onclick='window.location=' + clickhome) Yang's Seismic Lab
 		.my-navbar
 			a.nav-item(href='#about') 简介
 			a.nav-item(href='#projects') 项目
