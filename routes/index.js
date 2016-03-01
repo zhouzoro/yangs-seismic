@@ -186,9 +186,9 @@ MongoClient.connectAsync(url).then(function(db) {
 
                 Promise.all(allDataOp).then(function(val) {
                     console.log(val);
-                    fs.writeJson('/home/web/projects/running/yangs-seismic/yangs-seismic-master/public/temp.json', val, 'utf8' (err, data) => {
+                    fs.writeJson('/home/web/projects/running/yangs-seismic/yangs-seismic-master/public/temp.json', val, (err, data) => {
                         if (err) logErr(err);
-                    })
+                    });
                     res.render('contents/index', {
                         news: val[0],
                         event: val[1],
