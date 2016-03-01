@@ -1,9 +1,24 @@
 #people.box-container.custom-container.container-fluid
 	h2
 		label people
-	.people-group.container-fluid
-		if people && people[0]
-			each pp, index in people
+	-var prof = [];
+	-var pdoc = [];
+	-var grad = [];
+	-var ugd = [];
+	if people && people[0]
+		each pp, index in people
+			if pp.degree == 'professor'
+				-prof.push(pp);
+			else if pp.degree == 'post-doc'
+				-pdoc.push(pp);
+			else if pp.degree == 'graduate student'
+				-grad.push(pp);
+			else if pp.degree == 'undergraduate student'
+				-ugd.push(pp);
+	if prof && prof[0]
+		.people-group.container-fluid
+			.group-label professor
+			each pp, index in prof
 				.people.col-xs-6.col-sm-4.col-md-3
 					.card-box
 						.image
@@ -12,56 +27,58 @@
 							a.header(href='/people?_id=' + pp._id)= pp.name
 							.meta
 								span.label= pp.title
-		.people.col-xs-6.col-sm-4.col-md-3
+	if pdoc && pdoc[0]
+		.people-group.container-fluid
+			.group-label post-doc
+			each pp, index in pdoc
+				.people.col-xs-6.col-sm-4.col-md-3
+					.card-box
+						.image
+							img.media-object.img-circle.center-block(src= pp.picture)
+						.content
+							a.header(href='/people?_id=' + pp._id)= pp.name
+							.meta
+								span.label= pp.title
+	if grad && grad[0]
+		.people-group.container-fluid
+			.group-label graduate student
+			each pp, index in grad
+				.people.col-xs-6.col-sm-4.col-md-3
+					.card-box
+						.image
+							img.media-object.img-circle.center-block(src= pp.picture)
+						.content
+							a.header(href='/people?_id=' + pp._id)= pp.name
+							.meta
+								span.label= pp.title
+	if ugd && ugd[0]
+		.people-group.container-fluid
+			.group-label undergraduate student
+			each pp, index in ugd
+				.people.col-xs-6.col-sm-4.col-md-3
+					.card-box
+						.image
+							img.media-object.img-circle.center-block(src= pp.picture)
+						.content
+							a.header(href='/people?_id=' + pp._id)= pp.name
+							.meta
+								span.label= pp.title
+	if editmode
+		if people && people[0]
+			.people-group.container-fluid
+				.group-label all
+				each pp, index in people
+					.people.col-xs-6.col-sm-4.col-md-3
+						.card-box
+							.image
+								img.media-object.img-circle.center-block(src= pp.picture)
+							.content
+								a.header(href='/people?_id=' + pp._id)= pp.name
+								.meta
+									span.label= pp.title
+
+	if editmode
+		.people.col-xs-6.col-sm-4.col-md-3.edit-add
 			.card-box
-				.image
-					img(src='https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwi71OS2oIvLAhUS2GMKHXicCR0QjRwIBw&url=http%3A%2F%2Fwww.piedpiper.com%2F&psig=AFQjCNHXjOpGjqvK2j_8Wq5bJJ-sFfgvuA&ust=1456226358152598')
-				.content
-					a.header(href='/person') Richard Hendriks
-					.meta
-						span.label CEO/President
-		.people.col-xs-6.col-sm-4.col-md-3
-			.card-box
-				.image
-					img(src='http://static1.squarespace.com/static/551d64a8e4b0eeef9d4c5e6e/551d87c7e4b088e1f80a36d5/552a8c7ae4b01f43e14c0e1b/1428851970294/erlich.png?format=500w')
-				.content
-					a.header(href='/person') Erlich Bachmann
-					.meta
-						span.label Board Member
-		.people.col-xs-6.col-sm-4.col-md-3
-			.card-box
-				.image
-					img(src='http://static1.squarespace.com/static/551d64a8e4b0eeef9d4c5e6e/551d87c7e4b088e1f80a36d5/552a8c7be4b01f43e14c0e1d/1428965138819/jared.png?format=500w')
-				.content
-					a.header(href='/person') Jared Dunn
-					.meta
-						span.label Head of Business Development
-		.people.col-xs-6.col-sm-4.col-md-3
-			.card-box
-				.image
-					img(src='http://static1.squarespace.com/static/551d64a8e4b0eeef9d4c5e6e/551d87c7e4b088e1f80a36d5/552a8c7ae4b0042c027b9b02/1428852057404/dinesh.png?format=500w')
-				.content
-					a.header(href='/person') Dinesh Chugtai
-					.meta
-						span.label Programmer, Co-CTO
-		.people.col-xs-6.col-sm-4.col-md-3
-			.card-box
-				.image
-					img(src='http://static1.squarespace.com/static/551d64a8e4b0eeef9d4c5e6e/551d87c7e4b088e1f80a36d5/552a8c7be4b0719b1e06e930/1430749042925/gilfoyle.png?format=500w')
-				.content
-					a.header(href='/person') BERTRAM GILFOYLE
-					.meta
-						span.label Systems Architect, Co-CTO
-		.people.col-xs-6.col-sm-4.col-md-3
-			.card-box
-				.image
-					img(src='http://static1.squarespace.com/static/551d64a8e4b0eeef9d4c5e6e/551d87c7e4b088e1f80a36d5/55477e9de4b0ebc5baf7ab02/1430749054959/carla.png?format=500w')
-				.content
-					a.header(href='/person') CARLA WALTON
-					.meta
-						span.label Platform Engineer
-		if editmode
-			.people.col-xs-6.col-sm-4.col-md-3.edit-add
-				.card-box
-					.add-btn(data-url='/add/uploadp' data-type='people')
-						i.fa.fa-plus-square
+				.add-btn(data-url='/add_people' data-type='people')
+					i.fa.fa-plus-square

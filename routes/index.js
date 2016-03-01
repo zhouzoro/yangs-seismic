@@ -52,6 +52,7 @@ function doADump() {
 function importData(coll) {
     shell.exec('mongoimport --db yss --port 65123 --jsonArray --collection ' + coll + ' --file /home/web/projects/running/yangs-seismic/yangs-seismic-master/' + coll + '-0301.json');
 }
+
 function saveFile(req, res, ftype) {
     var uDir = path.join(__dirname, '/../public/', ftype);
     var form = new formidable.IncomingForm({
@@ -88,20 +89,10 @@ router.post('/images', function(req, res, next) {
 router.post('/files', function(req, res, next) {
     saveFile(req, res, 'files');
 });
-router.get('/add/event', function(req, res, next) {
-    var uploadevtJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadevt.jade'));
-    var html = uploadevtJade();
-    res.send(html);
-});
 
-router.get('/add/uploadp', function(req, res, next) {
+router.get('/add_people', function(req, res, next) {
     var uploadpJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadp.jade'));
     var html = uploadpJade();
-    res.send(html);
-});
-router.get('/add/uploadres', function(req, res, next) {
-    var uploadresJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadres.jade'));
-    var html = uploadresJade();
     res.send(html);
 });
 router.get('/add_news', function(req, res, next) {
@@ -120,11 +111,6 @@ router.get('/add_project', function(req, res, next) {
     res.send(html);
 });
 router.get('/add_research', function(req, res, next) {
-    var uploadprojJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadproj.jade'));
-    var html = uploadprojJade();
-    res.send(html);
-});
-router.get('/add/uploadproj', function(req, res, next) {
     var uploadprojJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadproj.jade'));
     var html = uploadprojJade();
     res.send(html);
@@ -446,66 +432,43 @@ MongoClient.connectAsync(url).then(function(db) {
         });
 
         router.post('/add_people', function(req, res) {
-            doADump();
-            console.log(req.body);
-            var people = db.collection('people');
-            people.insertOneAsync(req.body)
-                .then(function(r) {
-                    res.send({
-                        url: '/people?_id=' + r.insertedId
-                    });
-                })
-                .catch(logErr);
+            uploadDoc(res, 'people', req.body);
         });
-
         router.post('/add_project', function(req, res) {
-            doADump();
-            var proj = db.collection('project');
-            console.log(req.body);
-            proj.insertOneAsync(req.body)
-                .then(function(r) {
-                    res.send({
-                        url: '/project?_id=' + r.insertedId
-                    });
-                })
-                .catch(logErr);
+            uploadDoc(res, 'project', req.body);
         });
         router.post('/add_event', function(req, res) {
-            doADump();
-            console.log(req.body);
-            var evt = db.collection('event');
-            evt.insertOneAsync(req.body)
-                .then(function(r) {
-                    res.send({
-                        url: '/event?_id=' + r.insertedId
-                    });
-                })
-                .catch(logErr);
+            uploadDoc(res, 'event', req.body);
         });
         router.post('/add_research', function(req, res) {
-            doADump();
-            console.log(req.body);
-            var rsh = db.collection('research');
-            rsh.insertOneAsync(req.body)
-                .then(function(r) {
-                    res.send({
-                        url: '/reseach?_id=' + r.insertedId
-                    });
-                })
-                .catch(logErr);
+            uploadDoc(res, 'research', req.body);
         });
         router.post('/add_news', function(req, res) {
-            doADump();
-            console.log(req.body);
-            var nw = db.collection('news');
-            nw.insertOneAsync(req.body)
-                .then(function(r) {
-                    res.send({
-                        url: '/news?_id=' + r.insertedId
-                    });
-                })
-                .catch(logErr);
+            uploadDoc(res, 'news', req.body);
         });
+
+        function uploadDoc(res, doctype, doc) {
+            doADump();
+            var tempColl = db.collection(doctype);
+            if (doc.id) {
+                var docId = convertId(doc.id);
+                tempColl.updateOneAsync({ _id: docId }, { $set: doc })
+                    .then(function(r) {
+                        res.send({
+                            url: '/' + doctype + '?_id=' + r.insertedId
+                        });
+                    })
+                    .catch(logErr);
+            } else {
+                tempColl.insertOneAsync(doc)
+                    .then(function(r) {
+                        res.send({
+                            url: '/' + doctype + '?_id=' + r.insertedId
+                        });
+                    })
+                    .catch(logErr);
+            }
+        }
     })
     .catch(function(err) {
         logErr(err);

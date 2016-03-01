@@ -2,16 +2,13 @@ extends ../layout
 
 block content
 	//schema details can be found at 'http://json-schema.org/draft-04/schema#', not all itemprops are properly addressed
-	#person.container-fluid(itemscope itemtype='http://json-schema.org/draft-04/schema#')
-		include edit
+	include edit
+	#person.edit-hidden.container-fluid(itemscope itemtype='http://json-schema.org/draft-04/schema#')
 		.row
 			.card-wrapper
 				.card
 					.profile-card(itemscope itemprop='basics')
 						#profile-pic.profile-pic
-							#edit-pic.edit-only
-								#pic-loader
-								label.btn change
 							img.media-object.img-circle.center-block(src= doc.picture alt= doc.name itemprop='image')
 						.contact-details.edit-hidden
 							.name-and-profession
@@ -30,34 +27,10 @@ block content
 								span.icon
 									i.fa.fa-lg.fa-phone
 								a.link-disguise.info(href='tel://' + doc.telephone, itemprop='telephone')= doc.phone
-
-						.contact-details.edit-only
-							.name-and-profession
-								h3.text-bolder.name
-									.ui.input.transparent
-										input#input-name(type="text" name="name" placeholder="John Doe" required)
-								h5.text-muted(itemprop='label')
-									.ui.input.transparent
-										input#input-title(type="text" name="title" placeholder="Title" required)
-							.detail
-								span.icon
-									i.fa.fa-lg.fa-map-marker
-								span.info
-									.ui.input.transparent
-										input#input-office(type="text" name="office" placeholder="Office location" required)
-							.detail
-								span.icon
-									i.fa.fa-lg.fa-envelope
-								span.info
-									.ui.input.transparent
-										input#input-email(type="text" name="email" placeholder="email address" required)
-							.detail
-								span.icon
-									i.fa.fa-lg.fa-phone
-								span.info
-									.ui.input.transparent
-										input#input-phone(type="text" name="phone" placeholder="office number" required)
 		.row
 			.card-wrapper
 				.card.background-card
-					#input-body!= doc.details
+					.people-details!= doc.details
+	if editmode
+		.edit-only
+			include ../uploads/uploadp.jade

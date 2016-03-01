@@ -79,31 +79,45 @@ function scrollTo(eleId) {
     }, '500');
 }
 $('.edit-controls').each(function() {
-    var editor = $(this);
+    var editControl = $(this);
     $(this).find('.save-btn').hide();
-    $(this).next('.editable').addClass('editing edit-disabled');
-    $(this).find('.edit-btn').click(() => {
-        $(this).find('.edit-btn').hide();
-        $(this).find('.save-btn').show().click(function() {
-            $(this).next('.editable').addClass('edit-disabled');
-            if ($(this).data('type') == 'about') {
-                var data = { html: tinymce.activeEditor.save() };
-                $.post('/change/about', data, function(res) {
-                    console.log(res);
-                })
-                console.log(tinymce.activeEditor.getContent());
-            }
+    if ($(this).parent().find('.editable') && $(this).parent().find('.editable')[0]) {
+        var editor = $(this).parent().find('.editable');
+        console.log(editor);
+        editor.addClass('editing edit-disabled');
+        $(this).find('.edit-btn').click(() => {
+            $(this).find('.edit-btn').hide();
+            $(this).find('.save-btn').show().click(function() {
+                editor.addClass('edit-disabled');
+                if ($(this).data('type') == 'about') {
+                    var data = { html: tinymce.activeEditor.save() };
+                    $.post('/change/about', data, function(res) {
+                        console.log(res);
+                    })
+                    console.log(tinymce.activeEditor.getContent());
+                }
+            });
+            var editArea = '#' + editor.attr('id')
+            editor.removeClass('edit-disabled');
+            console.log(editArea);
+            initMce(editArea);
         });
-        var editArea = '#' + $(this).next('.editable').attr('id')
-        $(this).next('.editable').removeClass('edit-disabled');
-        console.log(editArea);
-        initMce(editArea);
-    });
+    } else if ($(this).parent().find('.edit-only') && $(this).parent().find('.edit-only')[0]) {
+        var editor = $(this).parent().find('.edit-only');
+        console.log(editor);
+        $(this).find('.edit-btn').click(() => {
+            $(this).find('.edit-btn').hide();
+            $(this).find('.save-btn').show();
+            editor.css('display', 'inline-block');
+            editor.prev('.edit-hidden').css('display', 'none');
+            initUploadOf(editControl.data('type'), editControl.data('id'))
+        });
+    }
     $(this).find('.delete-btn').click(() => {
         $('#loader').modal('show');
         var loader = $('#loader').find('.loader');
         loader.text('ing!');
-        $.post('/delete', { _id: editor.data('id'), doctype: editor.data('type') }, function(res) {
+        $.post('/delete', { _id: editControl.data('id'), doctype: editControl.data('type') }, function(res) {
             if (res.url) {
                 loader.text('done and done!');
                 window.location = res.url;
@@ -117,29 +131,29 @@ $('.edit-controls').each(function() {
     Cookies.set('editmode', true, {
         expires: 1
     });
-    console.log('editmode');
 });
 
-function initMce(selector) {
+function initMce(selector, docId) {
     //remove all instance
     /*for (var i = tinymce.editors.length - 1; i > -1; i--) {
         var ed_id = tinymce.editors[i].id;
         tinyMCE.execCommand("mceRemoveEditor", true, ed_id);
     }*/
+    var inline = false;
+    if (docId) inline = true;
     tinymce.EditorManager.remove();
     //init the new one
     tinymce.init({
         selector: selector,
-        //inline: true,
-        scontent_css: '/stylesheets/style.min.css',
+        inline: inline,
+        //content_css: '/stylesheets/person.min.css',
         plugins: "advlist lists link anchor paste image autoresize preview imagetools lists",
         toolbar: 'undo redo advlist lists formatselect fontsizeselect bold italic underline strikethrough alignleft aligncenter alignright link image preview',
         image_caption: true,
         paste_data_images: true,
-        fontsize_formats: '8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 36pt',
+        fontsize_formats: '8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt',
         menubar: false,
-        images_upload_url: '/images',
-        min_width: 720
+        images_upload_url: '/images'
     });
     //console.log(tinymce.editors.length);
     //setTimeout(function(){console.log(tinymce.editors.length);},1000);
@@ -296,8 +310,8 @@ function initManeger() {
     return e;
 };
 
-function initUploadOf(type) {
-    initMce('#input-body');
+function initUploadOf(type, docId) {
+    initMce('#input-body', docId);
     if (type === 'people') {
         console.log('uploading type of ' + type);
     } else {
@@ -341,16 +355,33 @@ function initUploadOf(type) {
         $('#btn-att').click(function() {
             vue.atts.push(attManager.addAtt());
         });
+    }
 
-        $('#btn-upload').click(function() {
-            $('#loader').modal('show');
+    $('#btn-upload').click(function() {
+        $('#loader').modal('show');
+        var data={};
+        if (docId) data.id = docId;
+        if (type === 'people') {
+            var people = $('#upload-people');
+            var data = {
+                name: people.find('#input-name').val(),
+                picture: people.find('#profile-pic').find('img').attr('src'),
+                title: people.find('#input-title').val(),
+                degree: people.find('#input-degree').val(),
+                office: people.find('#input-office').val(),
+                email: people.find('#input-email').val(),
+                phone: people.find('#input-phone').val(),
+                details: tinymce.activeEditor.save()
+            };
+            $.post('/add_people', data, function(res) {
+                window.location = res.url;
+            });
+        } else {
             var loader = $('#loader').find('.loader');
             loader.text('uploading Images');
             tinymce.activeEditor.uploadImages(function(success) {
                 loader.text('wrapping together');
                 var attHtml = attManager.wrapUp(vue.atts);
-                var data;
-                //if (type === 'project') {
                 data = {
                     title: $('#input-title').val(),
                     date: $('#input-date').val(),
@@ -360,7 +391,6 @@ function initUploadOf(type) {
                     body: tinymce.activeEditor.save() + attHtml,
                     att: attHtml
                 };
-                //}
                 loader.text('uploading');
                 var posturl = '/add_' + type;
                 $.post(posturl, data, function(res) {
@@ -368,8 +398,8 @@ function initUploadOf(type) {
                     window.location = res.url;
                 });
             });
-        })
-    }
+        }
+    })
 }
 
 function GetCurrentDate() {

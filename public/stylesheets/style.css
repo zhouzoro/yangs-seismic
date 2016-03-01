@@ -7,7 +7,7 @@ html, body {
 @media (min-width: 999px) {
   #header {
     color: gray;
-    height: 216px;
+    height: 196px;
     border-bottom: 1px solid lightgray;
     overflow: hidden;
   }
@@ -116,6 +116,32 @@ html, body {
     padding: 25px 4px 25px 24px;
   }
 }
+#body-loader {
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  top: 24px;
+  z-index: 999;
+}
+
+@media (max-width: 768px) {
+  #article #d_title {
+    padding: 12px 24px;
+  }
+  #article .meta {
+    font-size: 13px;
+  }
+  #article .meta label {
+    padding: 4px 12px 4px 2px;
+  }
+  #article .main-body {
+    padding: 8px 12px 24px 14px;
+  }
+
+  .card.background-card {
+    padding: 25px 4px 25px 24px;
+  }
+}
 #sidebar-normal {
   background: rgba(255, 255, 255, 0.5);
 }
@@ -162,27 +188,8 @@ a#sidebar-toggle {
   padding: 12px 24px;
 }
 
-.header-bg {
-  width: 100%;
-  height: 216px;
-  position: absolute;
-  top: 24px;
-  left: 0px;
-  -webkit-filter: blur(5px);
-          filter: blur(5px);
-  overflow: hidden;
-  background-image: url("/images/000.jpg");
-  background-size: cover;
-}
-.header-bg .filter {
-  width: 100%;
-  height: 100%;
-  opacity: 0.4;
-  background: black;
-}
-
 .header-images {
-  height: 216px;
+  height: 196px;
   position: relative;
   right: 0px;
   padding: 0px;
@@ -192,7 +199,7 @@ a#sidebar-toggle {
 }
 .header-images .filter {
   position: absolute;
-  height: 216px;
+  height: 196px;
   width: 30%;
   height: 400%;
   top: calc(216px - 200%);
@@ -318,6 +325,19 @@ a#sidebar-toggle {
   padding: 24px;
 }
 
+#article #d_title {
+  padding: 24px 36px;
+}
+#article .meta {
+  font-size: 13px;
+}
+#article .meta label {
+  padding: 4px 24px 4px 2px;
+}
+#article .main-body {
+  padding: 8px 24px 34px 34px;
+}
+
 .editable.editing {
   border: 1px solid gray;
 }
@@ -346,14 +366,19 @@ a#sidebar-toggle {
   text-align: center;
 }
 
+.profile-card {
+  max-height: 114px;
+}
+
 .inline-img {
   max-width: 100%;
 }
 
-.mce-container {
-  height: 640px;
+.mymce-container {
+  min-height: 640px;
+  width: 100%;
 }
-.mce-container #input-body {
+.mymce-container #input-body {
   width: 100%;
   display: inline-block;
   overflow-wrap: auto;
@@ -362,6 +387,10 @@ a#sidebar-toggle {
 
 .edit-only {
   display: none;
+}
+
+.edit-hidden {
+  display: inline-block;
 }
 
 .card-box {
@@ -514,6 +543,13 @@ a#sidebar-toggle {
 #people .people-group {
   border: 1px solid lightgray;
 }
+#people .people-group .group-label {
+  width: 100%;
+  text-align: left;
+  font-size: 18px;
+  padding: 8px 4px 4px 8px;
+  border-bottom: 1px solid lightgray;
+}
 #people .people-group .people {
   padding: 12px;
   text-align: center;
@@ -526,8 +562,7 @@ a#sidebar-toggle {
   width: 100px;
   height: 100px;
   z-index: 2;
-  position: relative;
-  bottom: -100px;
+  position: absolute;
 }
 #profile-pic #edit-pic #pic-loader {
   width: 100px;
@@ -541,6 +576,7 @@ a#sidebar-toggle {
   color: white;
   position: relative;
   top: 36px;
+  left: 12px;
   padding: 2px 8px;
 }
 #profile-pic #edit-pic label.btn {

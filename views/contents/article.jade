@@ -1,13 +1,15 @@
 extends ../layout
 
 block content
-	#article(data-id= doc._id data-type= doctype)
-		include edit
+	include edit
+	#article.edit-hidden(data-id= doc._id data-type= doctype)
 		h2#d_title= doc.title
-		.row
-			p.meta.col-md-12.col-lg-10.col-lg-offset-1
+		.meta
 				if doc.date
 					label#d_date= doc.date
 				if doc.source
-					strong#d_source= "来源: " + doc.source
+					strong#d_source= "By: " + doc.source
 		.main-body!= doc.body
+	if editmode
+		.edit-only
+			include ../uploads/uploadproj.jade
