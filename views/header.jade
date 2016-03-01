@@ -1,21 +1,26 @@
-header#header
-	//.header-bg
-		.filter
-	-var clickhome = '"/"'
-	if editmode
-		-clickhome = '"/edit?editor=zhang_fan&key=yangs_seismic_lab_2016"'
-	.custom-header.col-xs-12.col-sm-8.col-md-8.col-lg-7
-		.click-home.logo(onclick='window.location=' + clickhome)
-			|logo here
-		h1.site-title.click-home(onclick='window.location=' + clickhome) Yang's Seismic Lab
-		.my-navbar
-			a.nav-item(href='#about') 简介
-			a.nav-item(href='#projects') 项目
-			a.nav-item(href='#people') 人员
-			a.nav-item(href='#people') 活动
-			a.nav-item(href='#people') FAQ
-	.full-height.header-images.col-xs-0.col-sm-4.col-md-4.col-lg-5
-		.filter
-			.left
-			.right
-		img(src='/images/000.jpg' hidden)
+#header-container.container-fluid
+	header#header.full-width.normal.col-md-9.col-md-offset-3.col-lg-8.col-lg-offset-2
+		a#sidebar-toggle(onclick='toggleSidebar()')
+			i.fa.fa-bars
+		//.header-bg
+			.filter
+		-var home = '"/"'
+		if editmode
+			-home = '"/edit?editor=zhang_fan&key=yangs_seismic_lab_2016"'
+		.custom-header.col-xs-12.col-sm-12.col-md-8.col-lg-7
+			.logo
+				img.click-home(onclick='window.location=' + home)
+				|logo here
+			.site-title
+				h1.click-home(onclick='window.location=' + home) Yang's Seismic Lab
+			//.my-navbar
+				a.nav-item(href='#about') 简介
+				a.nav-item(href='#projects') 项目
+				a.nav-item(href='#people') 人员
+				a.nav-item(href='#people') 活动
+				a.nav-item(href='#people') FAQ
+		.full-height.header-images.col-xs-0.col-sm-4.col-md-4.col-lg-5
+			.filter
+				.left
+				.right
+			img(src='/images/000.jpg' hidden)

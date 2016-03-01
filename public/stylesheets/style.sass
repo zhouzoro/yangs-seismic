@@ -12,11 +12,13 @@ html,body
 
 //.box-indicator
 	//border: 2px solid black
-#header
-	color: gray
-	height: $header-height
-	border-bottom: 1px solid lightgray
-	overflow: hidden
+
+@media (min-width: 999px)
+	#header
+		color: gray
+		height: $header-height
+		border-bottom: 1px solid lightgray
+		overflow: hidden
 
 #body
 	padding: 0px
@@ -24,28 +26,109 @@ html,body
 	padding-bottom: 24px
 	margin-top: 32px
 	box-shadow: 0px -12px 24px -16px rgba(0,0,0,0.4)
+	#top-indicator
+		display: block
+		width: 1px
 #main
 	padding: 0px
 
 #main-content
 	border-right: 1px solid lightgray
 #site-path
-	width: 100%
 	padding: 8px
+	position: relative
+	top: -28px
 .ui.steps
 	.step
 		padding: 8px 12px 8px 24px
+.full-width
+	padding: 0px
+@media (max-width: 999px)
+	#header-container
+		padding: 0px
+		header#header
+			width: 100%
+			top: 0px
+			padding: 0px
+			background: white
+			a#sidebar-toggle
+				z-index: 100
+				display: inline-block
+				position: absolute
+				padding: 8px
+				font-size: 36px
+				cursor: pointer
+			.custom-header
+				padding: 2px
+				.site-title
+					padding: 8px
+					margin: 0px
+					text-align: center
+				.logo
+					text-align: center
+				.my-navbar
+					display: none
+			.header-images
+				display: none
+	#header-container.normal
+		header#header
+			height: 162px
+			background: white
+			.custom-header
+				padding: 2px
+				.logo
+					text-align: center
+	#header-container.fixed
+		header#header
+			position: fixed
+			z-index: 99
+			top: 0px
+			height: 54px
+			background: #DDC5DE
+			box-shadow: 0px 12px 24px -16px rgba(190,120,190,0.9)
+			.custom-header
+				padding: 2px
+				.logo
+					display: none
+	#sidebar-normal
+		display: none
+
+#sidebar-normal
+	background: rgba(255,255,255,0.5)
+.ui.vertical.menu
+	a.item
+		.icon-container
+			width: 48px
+			display: inline-block
+			i
+				position: relative
+				font-size: 18px
+				margin: auto
+				padding: 4px 8px
+		span
+			font-size: 13px
+	a.item:first-child
+		.icon-container
+			i
+				font-size: 26px
+				padding: 8px
+		span
+			font-size: 16px
 
 .full-height
 	height: 100%
 
+a#sidebar-toggle
+	display: none
 .custom-header
 	padding: 12px
 	z-index: 9
 	//border-radius: 5px
 	.logo
+		margin: auto
 		height: 48px
 	.site-title
+		margin: auto
 		padding: 12px 24px
 
 .header-bg
@@ -86,14 +169,14 @@ html,body
 			position: absolute
 			left: -50%
 			height: 100%
-			background: white
+			background: rgba(221,220,225,1)
 		.right
 			display: inline-block
 			position: absolute
 			left: calc(50% - 1px)
 			width: 50%
 			height: 100%
-			background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0.7), rgba(255,255,255,0.45), rgba(255,255,255,0.25), rgba(255,255,255,0.1), rgba(255,255,255,0))
+			background: linear-gradient(to right, rgba(221,220,225,1), rgba(221,220,225,0.7), rgba(221,220,225,0.45), rgba(221,220,225,0.25), rgba(221,220,225,0.1), rgba(221,220,225,0))
 
 .my-navbar
 	float: left
@@ -157,6 +240,15 @@ html,body
 	padding: 0px
 	color: black
 	border-top: 1px solid lightgray
+	h2
+		text-align: center
+		margin: 64px
+		label
+			border: 2px solid black
+			border-radius: 5px
+			padding: 6px 24px
+	div
+		padding: 0px 2px
 	.content.editable
 		h2
 			text-align: center
@@ -200,34 +292,123 @@ html,body
 		word-wrap: auto
 .edit-only
 	display: none
-#projects
-	.project
-		padding: 12px
-		text-align: center
-		.card-box
-			.content
-				p.description
-					color: black
-					word-wrap: default
 .card-box
 	width: 100%
-	height: 324px
+	height: 256px
 	border: 1px solid lightgray
 	border-radius: 4px
 	background: white
 	overflow: hidden
 	.image
-		height: 232px
+		height: 168px
+		padding: 8px
 		img
 			width: 100%
-			max-width: 232px
+			max-width: 168px
 			height: width
-			max-height: 232px
+			max-height: 168px
+			object-fit: cover
 	.content
+		padding-top: 24px
 		a.header
-			font-size: 18px
+			font-size: 16px
 		.meta
 			color: gray
+			font-size: 14px
+
+
+.news-style
+	height: 289px
+	padding: 0px 1px
+	overflow: hidden
+	img.background.image
+		width: 100%
+		height: 289px
+		transition: all 0.4s ease-out
+		object-fit: cover
+		border: 2px solid #32ACB7
+	.content
+		color: white
+		background: rgba(0,0,0,0.2)
+		position: relative
+		top: -289px
+		width: 100%
+		padding: 24px
+		padding-top: 200px
+		height: 289px
+		overflow: hidden
+		transition: all 0.4s ease-out
+		div
+			transition: all 0.4s ease-out
+		.header
+			display: inline-block
+			font-size: 18px
+			height: 54px
+			overflow: hidden
+		.meta
+			font-size: 12px
+			margin-bottom: 36px
+		.description
+			font-size: 12px
+			height: 88px
+			margin-bottom: 24px
+			overflow: hidden
+
+.news-style:hover .background.image
+	border: 8px solid #32ACB7
+.news-style:hover .content
+	padding-top: 64px
+	background: rgba(0,0,0,0.4)
+.news-style:hover .meta
+	margin-bottom: 12px
+.news-style:hover .description
+	margin-bottom: 4px
+.arrow
+	padding: 4px
+	height: 24px
+	background: rgba(0,0,0,0.5)
+	opacity: 0.6
+	cursor: pointer
+	div
+		display: inline-block
+	.stick
+		width: 28px
+		height: 1px
+		position: relative
+		top: -5px
+		background: white
+	.point
+		width: 12px
+		height: 12px
+		margin-top: 6px
+		position: relative
+		left: -12px
+		border-top: 1px solid white
+		border-left: 1px solid white
+		transform: rotate(135deg)
+	.wall
+		color: white
+		font-size: 10px
+		width: 2px
+		height: 17px
+		position: relative
+		left: -8px
+		top: 3px
+		border-left: 1px solid white
+.arrow:hover
+	opacity: 1
+
+#scroll-top
+	background: rgba(180,120,180,0.9)
+	border-radius: 4px
+	height: 42px
+	padding-top: 6px
+	padding-bottom: 12px
+	transform: rotate(270deg)
+	position: fixed
+	top: 84px
+	right: -4px
+
 #people
 	.people-group
 		border: 1px solid lightgray
@@ -252,7 +433,7 @@ html,body
 			cursor: pointer
 			color: white
 			position: relative
-			margin: 36px 16px
+			top: 36px
 			padding: 2px 8px
 		label.btn
 			border: 2px solid white

@@ -44,10 +44,16 @@ router.use(function(req, res, next) {
     winston.info(GetCurrentDatetime(), ': request from: ', req.ip, ', req.url: ', req.originalUrl);
     next();
 });
+
 function doADump() {
     shell.exec('mongodump --db yss --port 65123 --out /home/web/projects/running/yangs-seismic/yangs-seismic-master/mongodump-' + GetCurrentDatetime());
 };
 
+function importData(coll) {
+    shell.exec('mongoimport --db yss --port 65123 --jsonArray --collection ' + coll + ' --file /home/web/projects/running/yangs-seismic/yangs-seismic-master/' + coll + '-0301.json');
+}
+importData('news');
+importData('people');
 function saveFile(req, res, ftype) {
     var uDir = path.join(__dirname, '/../public/', ftype);
     var form = new formidable.IncomingForm({
@@ -193,7 +199,6 @@ MongoClient.connectAsync(url).then(function(db) {
         router.get('/', function(req, res, next) {
             fs.readFile(aboutHtml, 'utf8', (err, data) => {
                 if (err) console.log(err);
-                console.log(data);
 
                 Promise.all(allDataOp).then(function(val) {
                     res.render('contents/index', {
@@ -218,10 +223,8 @@ MongoClient.connectAsync(url).then(function(db) {
             }
             fs.readFile(aboutHtml, 'utf8', (err, data) => {
                 if (err) console.log(err);
-                console.log(data);
 
                 Promise.all(allDataOp).then(function(val) {
-                	console.log(val[3]);
                     res.render('contents/index', {
                         news: val[0],
                         event: val[1],

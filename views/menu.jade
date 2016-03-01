@@ -1,0 +1,63 @@
+//.ui.search
+
+-var home = '/'
+if editmode
+	-home = '/edit?editor=zhang_fan&key=yangs_seismic_lab_2016'
+if doc
+	a.item.nav-link(href=home)
+		.icon-container
+			i.fa.fa-home
+		span Home
+	a.item.nav-link(href=home + '#about')
+		.icon-container
+			i.fa.fa-info-circle
+		span About
+	a.item.nav-link(href=home + '#news')
+		.icon-container
+			i.fa.fa-newspaper-o
+		span News
+	a.item.nav-link(href=home + '#event')
+		.icon-container
+			i.fa.fa-bullseye
+		span Event
+	a.item.nav-link(href=home + '#research')
+		.icon-container
+			i.fa.fa-flask
+		span Research
+	a.item.nav-link(href=home + '#project')
+		.icon-container
+			i.fa.fa-rocket
+		span Project
+	a.item.nav-link(href=home + '#people')
+		.icon-container
+			i.fa.fa-user
+		span People
+else
+	a.item.nav-link(onclick='ScrollTop()')
+		.icon-container
+			i.fa.fa-home
+		span Home
+	a.item.nav-link(onclick='scrollTo("#about")')
+		.icon-container
+			i.fa.fa-info-circle
+		span About
+	a.item.nav-link(onclick='scrollTo("#news")')
+		.icon-container
+			i.fa.fa-newspaper-o
+		span News
+	a.item.nav-link(onclick='scrollTo("#event")')
+		.icon-container
+			i.fa.fa-bullseye
+		span Event
+	a.item.nav-link(onclick='scrollTo("#research")')
+		.icon-container
+			i.fa.fa-flask
+		span Research
+	a.item.nav-link(onclick='scrollTo("#project")')
+		.icon-container
+			i.fa.fa-rocket
+		span Project
+	a.item.nav-link(onclick='scrollTo("#people")')
+		.icon-container
+			i.fa.fa-user
+		span People

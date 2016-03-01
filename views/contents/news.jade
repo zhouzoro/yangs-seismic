@@ -3,17 +3,19 @@
 		label news
 	if news && news[0]
 		each nw, index in news
-			.news.col-md-4
-				.card-box
-					.image
-						img(src=nw.cover)
-					.content
-						a.header= nw.title
-						.meta
-							span.date= nw.date
-						p.description= nw.quote
+			.news.news-style.col-xs-6.col-sm-4.col-md-3
+				img.background.image(src=nw.cover)
+				.content
+					.header= nw.title
+					.meta
+						span.date= nw.date
+					.description= nw.quote
+					a.arrow(href='/news?_id=' + nw._id)
+						.stick
+						.point
+						.wall
 	if editmode
-		.news.col-md-4.edit-add
+		.news.edit-add.col-xs-6.col-sm-4.col-md-3
 			.card-box
 				.add-btn(data-url='/add_news' data-type='news')
 					i.fa.fa-plus-square

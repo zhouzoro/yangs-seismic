@@ -3,7 +3,7 @@
 		label research
 	if research && research[0]
 		each rsh, index in research
-			.research.col-md-4
+			.research.col-xs-6.col-sm-4.col-md-3
 				.card-box
 					.image
 						img(src=rsh.cover)
@@ -13,7 +13,7 @@
 							span.date= rsh.date
 						p.description= rsh.quote
 	if editmode
-		.research.col-md-4.edit-add
+		.research.col-xs-6.col-sm-4.col-md-3.edit-add
 			.card-box
 				.add-btn(data-url='/add_research'  data-type='research')
 					i.fa.fa-plus-square

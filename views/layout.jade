@@ -5,7 +5,7 @@ html
 		meta(charset="utf-8")
 		meta(name="viewport" content="width=device-width, initial-scale=1")
 		link(rel='stylesheet' href='https://cdn.jsdelivr.net/fontawesome/4.5.0/css/font-awesome.min.css')
-		link(rel='stylesheet' href='/stylesheets/bootstrap.min.css')
+		link(rel='stylesheet' href='/stylesheets/bootstrap-grid.min.css')
 		link(rel='stylesheet' href='/semantic/semantic.min.css')
 		link(rel='stylesheet' href='/stylesheets/person.min.css')
 		link(rel='stylesheet' href='/stylesheets/upload.min.css')
@@ -33,28 +33,27 @@ html
 					.icon-holder
 						i.icon.radio
 					span FAQ
+		include header
 		#loader.ui.modal.basic
 			.content
 				.ui.text.loader Loading
-		#body.col-md-12.col-lg-8.col-lg-offset-2
-			include header
-			//.ui.steps
-				.step
-					a.content(href='#') Home
-				.step
-					a.content(href='#') People
-				.step
-					a.content(href='#') Richard Hendriks
-			//#site-path.ui.breadcrumb
-				a.section Home
-				.divider /
-				a.section People
-				.divider /
-				a.section.active Richard Hendriks
+		#sidebar-hidden.ui.sidebar.inverted.vertical.menu
+			include menu
+		#sidebar-normal.ui.left.fixed.vertical.menu
+			include menu
+		#body.col-md-9.col-md-offset-3.col-lg-8.col-lg-offset-2
+			#top-indicator
+			if doc
+				#site-path.ui.breadcrumb
+					a.section(href='/') Home
+					.divider /
+					a.section(href='/#' + doctype)= doctype
+					.divider /
+					a.section.active= doc.name ? doc.name : doc.title
 			#main.container-fluid
-				#main-content.col-xs-12.col-sm-9.col-md-9.col-lg-9
+				#main-content.col-xs-12.col-sm-12.col-md-12.col-lg-12
 					block content
-				#news.col-xs-12.col-sm-3.col-md-3.col-lg-3
+				//#news.col-xs-12.col-sm-3.col-md-3.col-lg-3
 					label news links
 					ol.ui.list
 						li
@@ -64,6 +63,10 @@ html
 						li
 							a.item news link3
 			include footer
+		#scroll-top.arrow(onclick='ScrollTop()')
+			.stick
+			.point
+			.wall
 		#modal.ui.modal
 			i.close.icon
 			.content

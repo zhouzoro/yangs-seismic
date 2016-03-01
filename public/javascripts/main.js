@@ -13,8 +13,71 @@ $(document).ready(function() {
             expires: 1
         });
     }
+    $('#sidebar-hidden').find('.item.nav-link').click(function() {
+        $('.sidebar').sidebar('hide');
+    })
+    showScrollTop()
+    changeHeaderOrNot();
+    $(document).scroll(showScrollTop);
+    $(window).resize(changeHeaderOrNot);
 })
 
+function changeHeaderOrNot() {
+    if ($(window).width() < 1000) {
+        controlNavPosition();
+        $(document).scroll(controlNavPosition);
+    } else {
+        $(document).off('scroll');
+    }
+}
+
+function toggleSidebar() {
+    $('.sidebar').sidebar('toggle');
+}
+
+function ScrollTop() {
+    var body = $("html, body");
+    body.stop().animate({
+        scrollTop: 0
+    }, '500');
+}
+
+function showScrollTop() {
+    if (checkVisible($('#top-indicator'))) {
+        $('#scroll-top').hide();
+    } else {
+        $('#scroll-top').show();
+    }
+}
+
+function controlNavPosition(evt) {
+    if (checkVisible($('#top-indicator'))) {
+        $('#header-container').switchClass('fixed', 'normal');
+    } else {
+        $('#header-container').switchClass('normal', 'fixed');
+    }
+}
+
+
+
+function checkVisible(elm, evalType) {
+    evalType = evalType || 'visible';
+
+    var vpH = $(window).height(), // Viewport Height
+        st = $(window).scrollTop(), // Scroll Top
+        y = $(elm).offset().top,
+        elementHeight = $(elm).height();
+
+    if (evalType === 'visible') return ((y < (vpH + st)) && (y > (st - elementHeight)));
+    if (evalType === 'above') return ((y < (vpH + st)));
+}
+
+function scrollTo(eleId) {
+    var body = $("html, body");
+    body.stop().animate({
+        scrollTop: $(eleId).offset().top
+    }, '500');
+}
 $('.edit-controls').each(function() {
     var editor = $(this);
     $(this).find('.save-btn').hide();
