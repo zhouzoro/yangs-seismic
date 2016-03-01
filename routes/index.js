@@ -185,6 +185,7 @@ MongoClient.connectAsync(url).then(function(db) {
                 if (err) console.log(err);
 
                 Promise.all(allDataOp).then(function(val) {
+                	console.log(val);
                     res.render('contents/index', {
                         news: val[0],
                         event: val[1],
@@ -252,10 +253,8 @@ MongoClient.connectAsync(url).then(function(db) {
         router.get('/people?', function(req, res) {
             Promise.resolve(convertId(req.query._id))
                 .then(function(id) {
-                    console.log(id);
                     var people = db.collection('people');
                     people.findOneAsync({ _id: id }).then(function(doc) {
-                        console.log(doc);
                         res.render('contents/onep', {
                             doc: doc,
                             doctype: 'people',
@@ -271,10 +270,8 @@ MongoClient.connectAsync(url).then(function(db) {
         router.get('/event?', function(req, res) {
             Promise.resolve(convertId(req.query._id))
                 .then(function(id) {
-                    console.log(id);
                     var event = db.collection('event');
                     event.findOneAsync({ _id: id }).then(function(doc) {
-                        console.log(doc);
                         res.render('contents/article', {
                             doc: doc,
                             doctype: 'event',
@@ -289,10 +286,8 @@ MongoClient.connectAsync(url).then(function(db) {
         router.get('/project?', function(req, res) {
             Promise.resolve(convertId(req.query._id))
                 .then(function(id) {
-                    console.log(id);
                     var project = db.collection('project');
                     project.findOneAsync({ _id: id }).then(function(doc) {
-                        console.log(doc);
                         res.render('contents/article', {
                             doc: doc,
                             doctype: 'project',
@@ -307,10 +302,8 @@ MongoClient.connectAsync(url).then(function(db) {
         router.get('/reseach?', function(req, res) {
             Promise.resolve(convertId(req.query._id))
                 .then(function(id) {
-                    console.log(id);
                     var reseach = db.collection('reseach');
                     reseach.findOneAsync({ _id: id }).then(function(doc) {
-                        console.log(doc);
                         res.render('contents/article', {
                             doc: doc,
                             doctype: 'reseach',
@@ -325,10 +318,8 @@ MongoClient.connectAsync(url).then(function(db) {
         router.get('/news?', function(req, res) {
             Promise.resolve(convertId(req.query._id))
                 .then(function(id) {
-                    console.log(id);
                     var reseach = db.collection('news');
                     reseach.findOneAsync({ _id: id }).then(function(doc) {
-                        console.log(doc);
                         res.render('contents/article', {
                             doc: doc,
                             doctype: 'news',
@@ -449,24 +440,23 @@ MongoClient.connectAsync(url).then(function(db) {
 
         function uploadDoc(res, doctype, doc) {
             doADump();
+            console.log(doc);
             var tempColl = db.collection(doctype);
             if (doc.id) {
                 var docId = convertId(doc.id);
-                tempColl.updateOneAsync({ _id: docId }, { $set: doc })
-                    .then(function(r) {
-                        res.send({
-                            url: '/' + doctype + '?_id=' + r.insertedId
-                        });
-                    })
-                    .catch(logErr);
+                console.log(doc.id + '--------------updating--------------' + docId);
+                tempColl.updateOne({ _id: docId }, { $set: doc }, function(err, r) {
+                    res.send({
+                        url: '/' + doctype + '?_id=' + r.insertedId
+                    });
+                });
             } else {
-                tempColl.insertOneAsync(doc)
-                    .then(function(r) {
-                        res.send({
-                            url: '/' + doctype + '?_id=' + r.insertedId
-                        });
-                    })
-                    .catch(logErr);
+                console.log('--------------adding--------------');
+                tempColl.insertOne(doc, function(err, r) {
+                    res.send({
+                        url: '/' + doctype + '?_id=' + r.insertedId
+                    });
+                });
             }
         }
     })

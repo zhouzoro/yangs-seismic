@@ -224,24 +224,6 @@ function computProgress(oEvent) {
     return percentComplete;
 }
 
-function uploadPeople() {
-    var people = $('#upload-people');
-
-    var data = {
-        name: people.find('#input-name').val(),
-        picture: people.find('#profile-pic').find('img').attr('src'),
-        title: people.find('#input-title').val(),
-        office: people.find('#input-office').val(),
-        email: people.find('#input-email').val(),
-        phone: people.find('#input-phone').val(),
-        details: tinymce.activeEditor.save()
-    };
-    console.log(data);
-    $.post('/add_people', data, function(res) {
-        window.location = res.url;
-    });
-}
-
 function Att() {
     this.title = '';
     this.name = '';
@@ -359,8 +341,6 @@ function initUploadOf(type, docId) {
 
     $('#btn-upload').click(function() {
         $('#loader').modal('show');
-        var data={};
-        if (docId) data.id = docId;
         if (type === 'people') {
             var people = $('#upload-people');
             var data = {
@@ -373,8 +353,10 @@ function initUploadOf(type, docId) {
                 phone: people.find('#input-phone').val(),
                 details: tinymce.activeEditor.save()
             };
+            if (docId) data.id = docId;
             $.post('/add_people', data, function(res) {
-                window.location = res.url;
+                if (docId) document.location.reload();
+                else window.location = res.url;
             });
         } else {
             var loader = $('#loader').find('.loader');
@@ -391,11 +373,13 @@ function initUploadOf(type, docId) {
                     body: tinymce.activeEditor.save() + attHtml,
                     att: attHtml
                 };
+                if (docId) data.id = docId;
                 loader.text('uploading');
                 var posturl = '/add_' + type;
                 $.post(posturl, data, function(res) {
                     $('#loader').modal('hide');
-                    window.location = res.url;
+                    if (docId) document.location.reload();
+                    else window.location = res.url;
                 });
             });
         }
