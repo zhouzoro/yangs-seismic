@@ -52,7 +52,6 @@ function doADump() {
 function importData(coll) {
     shell.exec('mongoimport --db yss --port 65123 --jsonArray --collection ' + coll + ' --file /home/web/projects/running/yangs-seismic/yangs-seismic-master/' + coll + '-0301.json');
 }
-importData('news');
 importData('people');
 function saveFile(req, res, ftype) {
     var uDir = path.join(__dirname, '/../public/', ftype);
