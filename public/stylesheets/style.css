@@ -111,6 +111,10 @@ html, body {
   #sidebar-normal {
     display: none;
   }
+
+  .card.background-card {
+    padding: 25px 4px 25px 24px;
+  }
 }
 #sidebar-normal {
   background: rgba(255, 255, 255, 0.5);
