@@ -54,8 +54,6 @@ var scrollStatus = {
         scrollStatus.position = $(window).scrollTop();
         scrollStatus.direction = scrollStatus.scrollRecord[0] === -1 ? 'down' : 'up';
         scrollStatus.continuous = scrollStatus.scrollRecord[0] === scrollStatus.scrollRecord[1];
-        console.log(scrollStatus.direction);
-        console.log(scrollStatus.continuous);
     },
     adaptResize: function() {
         scrollStatus.init();
@@ -94,9 +92,9 @@ function showScrollTop() {
 
 function controlNavPosition(evt) {
     if (checkVisible($('#top-indicator'))) {
-        $('#header').switchClass('fixed', 'normal');
+        $('#header').removeClass('fixed').addClass('normal');
     } else {
-        $('#header').switchClass('normal', 'fixed');
+        $('#header').removeClass('normal').addClass('fixed');
         if (scrollStatus.direction === 'up' && scrollStatus.continuous === true) {
             $('#header').removeClass('hidden').addClass('shown');
         } else if (scrollStatus.direction === 'down' && scrollStatus.continuous === true) {
@@ -237,7 +235,7 @@ function uploadPic() {
             }
 
             reader.readAsDataURL(this.files[0]);
-            label.switchClass('btn', 'pct');
+            label.removeClass('btn').addClass('pct');
             var updateProgress = (oEvent) => {
                 var pct = Math.ceil(100 * oEvent.loaded / oEvent.total);
                 var height = 100 - pct;
@@ -252,7 +250,7 @@ function uploadPic() {
                 var json = JSON.parse(fileUploadReq.responseText);
                 console.log(json.location);
                 img.attr('src', json.location);
-                label.switchClass('pct', 'btn').text('change');
+                label.removeClass('pct').addClass('btn').text('change');
                 $('.temp-input').remove();
             };
             fileUploadReq.upload.addEventListener("progress", updateProgress, false);
