@@ -3,7 +3,7 @@
 		label event
 	if event && event[0]
 		each evt, index in event
-			.event.col-xs-6.col-sm-4.col-md-3
+			.event.content-module.col-xs-6.col-sm-4.col-md-3
 				.card-box
 					.image
 						img(src=evt.cover)
@@ -13,7 +13,7 @@
 							span.date= evt.date
 						p.description= evt.quote
 	if editmode
-		.event.col-xs-6.col-sm-4.col-md-3.edit-add
+		.event.content-module.col-xs-6.col-sm-4.col-md-3.edit-add
 			.card-box
 				.add-btn(data-url='/add_event' data-type='event')
 					i.fa.fa-plus-square

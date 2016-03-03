@@ -1,7 +1,14 @@
 doctype html
 html
 	head
-		title Yangs Seismic Lab
+		-var title = ''
+		if doc
+			if doc.name
+				-title = doc.name
+			else if doc.title
+				-title = doc.title
+			-title = title + ' - '
+		title= title + 'Yangs Seismic Lab'
 		meta(charset="utf-8")
 		meta(name="viewport" content="width=device-width, initial-scale=1")
 		link(rel='stylesheet' href='https://cdn.jsdelivr.net/fontawesome/4.5.0/css/font-awesome.min.css')
@@ -86,4 +93,5 @@ html
 			script(src='/semantic/semantic.min.js')
 			//script(src='//cdn.tinymce.com/4/tinymce.min.js')
 			script(src='/tinymce/tinymce.min.js')
+			//script(src='/javascripts/scrollStatus.js')
 			script(src='/javascripts/main.js')

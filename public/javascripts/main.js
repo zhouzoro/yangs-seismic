@@ -1,11 +1,3 @@
-function startEdit() {
-    var editArea = $(this).parent('#person').attr('id');
-    console.log(editArea);
-    tinymce.init({
-        selector: '#person',
-        inline: true
-    });
-}
 $(document).ready(function() {
     Cookies.remove('editmode');
     if ($('.edit-controls') && $('.edit-controls')[0]) {
@@ -16,18 +8,68 @@ $(document).ready(function() {
     $('#sidebar-hidden').find('.item.nav-link').click(function() {
         $('.sidebar').sidebar('hide');
     })
+    $('.content-module').each(function(i, el) {
+        if (checkVisible(el)) {
+            $(el).addClass("already-visible");
+        }
+    })
     showScrollTop()
     changeHeaderOrNot();
-    $(document).scroll(showScrollTop);
+    $(document).scroll(function() {
+        showScrollTop();
+        scrollStatus.recordScroll();
+        contentAnimate();
+    });
     $(window).resize(changeHeaderOrNot);
 })
+
+function contentAnimate() {
+    $('.content-module').each(function(i, el) {
+        if (checkVisible(el) && !$(el).hasClass("already-visible")) {
+            $(el).addClass("already-visible");
+            if (scrollStatus.direction === 'down') {
+                console.log(-1);
+                $(el).addClass("come-in");
+
+            } else {
+                console.log(1);
+                $(el).addClass("come-down");
+            }
+        } else if (!checkVisible(el)) {
+            $(el).removeClass("already-visible come-in come-down");
+        }
+    })
+}
+var scrollStatus = {
+    scrollRecord: [0, 0],
+    init: function() {
+        scrollStatus.setPosition();
+    },
+    setPosition: function() {
+        scrollStatus.position = $(window).scrollTop();
+    },
+    recordScroll: function() {
+        scrollStatus.scrollRecord[1] = scrollStatus.scrollRecord[0];
+        scrollStatus.scrollRecord[0] = $(window).scrollTop() > scrollStatus.position ? -1 : 1;
+        scrollStatus.position = $(window).scrollTop();
+        scrollStatus.direction = scrollStatus.scrollRecord[0] === -1 ? 'down' : 'up';
+        scrollStatus.continuous = scrollStatus.scrollRecord[0] === scrollStatus.scrollRecord[1];
+        console.log(scrollStatus.direction);
+        console.log(scrollStatus.continuous);
+    },
+    adaptResize: function() {
+        scrollStatus.init();
+    }
+}
+$(document).ready(scrollStatus.init);
+$(window).resize(scrollStatus.adaptResize);
 
 function changeHeaderOrNot() {
     if ($(window).width() < 1000) {
         controlNavPosition();
-        $(document).scroll(controlNavPosition);
+        $(document).on('scroll', controlNavPosition);
     } else {
-        $(document).off('scroll');
+        $(document).off('scroll', controlNavPosition);
     }
 }
 
@@ -43,18 +85,23 @@ function ScrollTop() {
 }
 
 function showScrollTop() {
-    if (checkVisible($('#top-indicator'))) {
-        $('#scroll-top').hide();
+    if (!checkVisible($('#top-indicator')) && scrollStatus.direction === 'up') {
+        $('#scroll-top').removeClass("out").addClass("in");
     } else {
-        $('#scroll-top').show();
+        $('#scroll-top').removeClass("in").addClass("out");
     }
 }
 
 function controlNavPosition(evt) {
     if (checkVisible($('#top-indicator'))) {
-        $('#header-container').switchClass('fixed', 'normal');
+        $('#header').switchClass('fixed', 'normal');
     } else {
-        $('#header-container').switchClass('normal', 'fixed');
+        $('#header').switchClass('normal', 'fixed');
+        if (scrollStatus.direction === 'up' && scrollStatus.continuous === true) {
+            $('#header').removeClass('hidden').addClass('shown');
+        } else if (scrollStatus.direction === 'down' && scrollStatus.continuous === true) {
+            $('#header').removeClass('shown').addClass('hidden');
+        }
     }
 }
 
@@ -87,19 +134,19 @@ $('.edit-controls').each(function() {
         editor.addClass('editing edit-disabled');
         $(this).find('.edit-btn').click(() => {
             $(this).find('.edit-btn').hide();
-            $(this).find('.save-btn').show().click(function() {
-                editor.addClass('edit-disabled');
-                if ($(this).data('type') == 'about') {
+            $(this).find('.save-btn').show();
+            $(this).find('.save-btn').click(function() {
+                console.log(1);
+                if (editControl.data('type') == 'about') {
                     var data = { html: tinymce.activeEditor.save() };
                     $.post('/change/about', data, function(res) {
                         console.log(res);
+                        document.location.reload(true);
                     })
-                    console.log(tinymce.activeEditor.getContent());
                 }
             });
             var editArea = '#' + editor.attr('id')
             editor.removeClass('edit-disabled');
-            console.log(editArea);
             initMce(editArea);
         });
     } else if ($(this).parent().find('.edit-only') && $(this).parent().find('.edit-only')[0]) {

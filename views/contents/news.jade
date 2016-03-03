@@ -3,7 +3,7 @@
 		label news
 	if news && news[0]
 		each nw, index in news
-			.news.news-style.col-xs-6.col-sm-4.col-md-3
+			.news.news-style.content-module.col-xs-6.col-sm-4.col-md-3
 				img.background.image(src=nw.cover)
 				.content
 					.header= nw.title
@@ -15,7 +15,7 @@
 						.point
 						.wall
 	if editmode
-		.news.edit-add.col-xs-6.col-sm-4.col-md-3
+		.news.edit-add.content-module.col-xs-6.col-sm-4.col-md-3
 			.card-box
 				.add-btn(data-url='/add_news' data-type='news')
 					i.fa.fa-plus-square

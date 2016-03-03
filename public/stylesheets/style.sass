@@ -43,53 +43,68 @@ html,body
 		padding: 8px 12px 8px 24px
 .full-width
 	padding: 0px
+
+@keyframes showheader
+	from
+		top: -54px
+	to
+		top: 0px
 @media (max-width: 999px)
-	#header-container
+	//#header-container
+		//padding: 0px
+	header#header
+		width: 100%
+		top: 0px
 		padding: 0px
-		header#header
-			width: 100%
-			top: 0px
-			padding: 0px
-			background: white
-			a#sidebar-toggle
-				z-index: 100
-				display: inline-block
-				position: absolute
+		background: white
+		transition: all 0.8s ease-in-out
+		a#sidebar-toggle
+			z-index: 100
+			display: inline-block
+			position: absolute
+			padding: 8px
+			font-size: 36px
+			cursor: pointer
+		.custom-header
+			padding: 2px
+			.site-title
 				padding: 8px
-				font-size: 36px
-				cursor: pointer
-			.custom-header
-				padding: 2px
-				.site-title
-					padding: 8px
-					margin: 0px
-					text-align: center
-				.logo
-					text-align: center
-				.my-navbar
-					display: none
-			.header-images
+				margin: 0px
+				text-align: center
+			.logo
+				text-align: center
+			.my-navbar
 				display: none
-	#header-container.normal
-		header#header
-			height: 162px
-			background: white
-			.custom-header
-				padding: 2px
-				.logo
-					text-align: center
-	#header-container.fixed
-		header#header
-			position: fixed
-			z-index: 99
-			top: 0px
-			height: 54px
-			background: #DDC5DE
-			box-shadow: 0px 12px 24px -16px rgba(190,120,190,0.9)
-			.custom-header
-				padding: 2px
-				.logo
-					display: none
+		.header-images
+			display: none
+	//#header-container.normal
+	header#header.normal
+		height: 162px
+		background: white
+		.custom-header
+			padding: 2px
+			.logo
+				text-align: center
+	//#header-container.fixed
+	header#header.fixed
+		position: fixed
+		z-index: 99
+		top: 0px
+		height: 54px
+		background: #DDC5DE
+		box-shadow: 0px 12px 24px -16px rgba(190,120,190,0.9)
+		.custom-header
+			padding: 2px
+			.logo
+				display: none
+	//#header-container.fixed.hidden
+	header#header.fixed.hidden
+		animation: showheader 1s ease 0s 1 reverse
+		top: -54px
+	//#header-container.fixed.shown
+	header#header.fixed.shown
+		animation: showheader 1s ease
+		top: 0px
 	#sidebar-normal
 		display: none
 	.card.background-card
@@ -263,6 +278,27 @@ a#sidebar-toggle
 				padding: 6px 24px
 		p
 			padding: 24px
+	.come-in
+		transform: translateY(150px)
+		animation: come-in 0.8s ease forwards
+
+	.come-in:nth-child(odd)
+		animation-duration: 0.6s
+
+	.come-down
+		transform: translateY(-150px)
+		animation: come-in 0.8s ease forwards
+
+	.come-down:nth-child(odd)
+		animation-duration: 0.6s
+
+@keyframes come-in
+	to
+		transform: translateY(0)
+
+@keyframes come-in
+	to
+		transform: translateY(0)
 #article
 	#d_title
 		padding: 24px 36px
@@ -425,6 +461,23 @@ a#sidebar-toggle
 	top: 84px
 	right: -4px
 
+#scroll-top.in
+	right: -4px
+	animation: sin 0.8s ease
+
+#scroll-top.out
+	right: -48px
+	animation: sout 0.8s ease
+@keyframes sin
+	from
+		right: -48px
+	to
+		right: -4px
+@keyframes sout
+	from
+		right: -4px
+	to
+		right: -48px
 #people
 	.people-group
 		border: 1px solid lightgray

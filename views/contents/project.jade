@@ -3,7 +3,7 @@
 		label projects
 	if project && project[0]
 		each pj, index in project
-			.project.news-style.col-xs-6.col-sm-4.col-md-3
+			.project.content-module.news-style.col-xs-6.col-sm-4.col-md-3
 				img.background.image(src=pj.cover)
 				.content
 					.header= pj.title
@@ -15,7 +15,7 @@
 						.point
 						.wall
 
-	.project.news-style.col-xs-6.col-sm-4.col-md-3
+	.project.content-module.news-style.col-xs-6.col-sm-4.col-md-3
 		img.background.image(src='/images/000.jpg')
 		.content
 			.header Projects Aero
@@ -26,7 +26,7 @@
 				.stick
 				.point
 				.wall
-	.project.news-style.col-xs-6.col-sm-4.col-md-3
+	.project.content-module.news-style.col-xs-6.col-sm-4.col-md-3
 		img.background.image(src='/images/001.jpg')
 		.content
 			.header Projects Blob
@@ -37,7 +37,7 @@
 				.stick
 				.point
 				.wall
-	.project.news-style.col-xs-6.col-sm-4.col-md-3
+	.project.content-module.news-style.col-xs-6.col-sm-4.col-md-3
 		img.background.image(src='/images/002.jpg')
 		.content
 			.header Projects Cli
@@ -49,7 +49,7 @@
 				.point
 				.wall
 	if editmode
-		.project.news-style.col-xs-6.col-sm-4.col-md-3.edit-add
+		.project.content-module.news-style.col-xs-6.col-sm-4.col-md-3.edit-add
 			.card-box
 				.add-btn(data-url='/add_project' data-type='project')
 					i.fa.fa-plus-square

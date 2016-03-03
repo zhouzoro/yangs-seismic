@@ -19,7 +19,7 @@
 		.people-group.container-fluid
 			.group-label professor
 			each pp, index in prof
-				.people.col-xs-6.col-sm-4.col-md-3
+				.people.content-module.col-xs-6.col-sm-4.col-md-3
 					.card-box
 						.image
 							img.media-object.img-circle.center-block(src= pp.picture)
@@ -31,7 +31,7 @@
 		.people-group.container-fluid
 			.group-label post-doc
 			each pp, index in pdoc
-				.people.col-xs-6.col-sm-4.col-md-3
+				.people.content-module.col-xs-6.col-sm-4.col-md-3
 					.card-box
 						.image
 							img.media-object.img-circle.center-block(src= pp.picture)
@@ -43,7 +43,7 @@
 		.people-group.container-fluid
 			.group-label graduate student
 			each pp, index in grad
-				.people.col-xs-6.col-sm-4.col-md-3
+				.people.content-module.col-xs-6.col-sm-4.col-md-3
 					.card-box
 						.image
 							img.media-object.img-circle.center-block(src= pp.picture)
@@ -55,7 +55,7 @@
 		.people-group.container-fluid
 			.group-label undergraduate student
 			each pp, index in ugd
-				.people.col-xs-6.col-sm-4.col-md-3
+				.people.content-module.col-xs-6.col-sm-4.col-md-3
 					.card-box
 						.image
 							img.media-object.img-circle.center-block(src= pp.picture)
@@ -68,7 +68,7 @@
 			.people-group.container-fluid
 				.group-label all
 				each pp, index in people
-					.people.col-xs-6.col-sm-4.col-md-3
+					.people.content-module.col-xs-6.col-sm-4.col-md-3
 						.card-box
 							.image
 								img.media-object.img-circle.center-block(src= pp.picture)
@@ -78,7 +78,7 @@
 									span.label= pp.title
 
 	if editmode
-		.people.col-xs-6.col-sm-4.col-md-3.edit-add
+		.people.content-module.col-xs-6.col-sm-4.col-md-3.edit-add
 			.card-box
 				.add-btn(data-url='/add_people' data-type='people')
 					i.fa.fa-plus-square
