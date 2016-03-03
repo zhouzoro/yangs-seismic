@@ -1,8 +1,9 @@
 extends ../layout
 mixin slide(doc)
-	img.slr-img.cursor-pointer(src= doc.cover ?  doc.cover : '' alt='slider image' onclick='showDetail("'+doc._id+'")')
+	img.slr-img.cursor-pointer(src= doc.cover ?  doc.cover : '' alt='slider image')
 	.carousel-caption
-		h3(href='/news?_id=' + doc._id)= doc.title
+		h3
+			a(href='/news?_id=' + doc._id)= doc.title
 		label.slabelextra
 			a.slabeldate= doc.date.substr(0, 10)
 			label.slabelsource= doc.source
