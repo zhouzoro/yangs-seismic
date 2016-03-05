@@ -45,13 +45,13 @@ function contentAnimate() {
         if (checkVisible(el) && !$(el).hasClass("already-visible")) {
             $(el).addClass("already-visible");
             if (scrollStatus.direction === 'down') {
-                $(el).addClass("come-in");
+                $(el).removeClass('not-visible').addClass("come-in");
 
             } else {
-                $(el).addClass("come-down");
+                $(el).removeClass('not-visible').addClass("come-down");
             }
         } else if (!checkVisible(el)) {
-            $(el).removeClass("already-visible come-in come-down");
+            $(el).removeClass("already-visible come-in come-down").addClass('not-visible');
         }
     })
 }

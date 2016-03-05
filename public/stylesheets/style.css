@@ -71,6 +71,11 @@ html.ios, html.ios body {
   }
 }
 @media (max-width: 999px) {
+  #top-indicator {
+    position: relative;
+    top: 60px;
+  }
+
   header#header {
     width: 100%;
     top: 0px;
@@ -359,6 +364,7 @@ a#sidebar-toggle {
   padding: 24px;
 }
 .custom-container .come-in {
+  opacity: 0;
   -webkit-transform: translateY(150px);
   transform: translateY(150px);
   -webkit-animation: come-in 0.8s ease forwards;
@@ -368,7 +374,11 @@ a#sidebar-toggle {
   -webkit-animation-duration: 0.6s;
   animation-duration: 0.6s;
 }
+.custom-container .not-visible {
+  opacity: 0;
+}
 .custom-container .come-down {
+  opacity: 0;
   -webkit-transform: translateY(-150px);
   transform: translateY(-150px);
   -webkit-animation: come-in 0.8s ease forwards;
@@ -381,6 +391,7 @@ a#sidebar-toggle {
 
 @-webkit-keyframes come-in {
   to {
+    opacity: 1;
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
@@ -388,12 +399,7 @@ a#sidebar-toggle {
 
 @keyframes come-in {
   to {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-}
-@keyframes come-in {
-  to {
+    opacity: 1;
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
