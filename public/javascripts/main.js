@@ -87,7 +87,6 @@ function changeHeaderOrNot() {
 }
 
 function toggleSidebar() {
-    alert('ding!');
     $('.sidebar').sidebar('toggle');
 }
 

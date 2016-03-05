@@ -37,11 +37,10 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-    return //gulp.src('public/javascripts/main.js')
-        //.pipe(jshint('.jshintrc'))
-        //.pipe(jshint.reporter('default'))
-        //.pipe(
-        babel()
+    return gulp.src('public/javascripts/main.js')
+        .pipe(babel())
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter('default'))
         .pipe(gulp.dest('public/javascripts'))
         .pipe(rename({
             suffix: '.min'

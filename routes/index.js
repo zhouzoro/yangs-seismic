@@ -179,9 +179,6 @@ MongoClient.connectAsync(url).then(function(db) {
             findAllAsync('people', defaultSorter()),
             findAllAsync('research', defaultSorter()),
         ];
-        router.get('/m', function(req, res) {
-                res.render('mce');
-            })
             /* GET home page. */
         router.get('/', function(req, res, next) {
             fs.readFile(aboutHtml, 'utf8', (err, data) => {
