@@ -2,9 +2,10 @@
 	.row
 		.card-wrapper
 			if !editmode
-				#btn-upload.ui.labeled.icon.button.basic.green(onclick='uploadPeople()')
+				#btn-upload.ui.labeled.icon.button.basic.green.small Upload
 					i.icon.write
-					span Upload
+				#btn-cancel.ui.labeled.icon.button.basic.teal.small 取消
+					i.icon.remove
 			.card
 				.profile-card
 					#profile-pic.profile-pic

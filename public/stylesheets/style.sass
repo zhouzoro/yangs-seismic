@@ -12,7 +12,11 @@ html,body
 
 //.box-indicator
 	//border: 2px solid black
-
+html.ios
+	overflow-x: hidden
+	-webkit-overflow-scrolling: touch
+html.ios,html.ios body
+	height: initial !important
 @media (min-width: 999px)
 	#header
 		color: gray
@@ -84,7 +88,7 @@ html,body
 			.logo
 				text-align: center
 	//#header-container.fixed
-	header#header.fixed
+	header#header.fixed-header
 		position: fixed
 		z-index: 99
 		top: 0px
@@ -96,11 +100,11 @@ html,body
 			.logo
 				display: none
 	//#header-container.fixed.hidden
-	header#header.fixed.hidden
+	header#header.fixed-header.hidden
 		animation: showheader 1s ease 0s 1 reverse
 		top: -54px
 	//#header-container.fixed.shown
-	header#header.fixed.shown
+	header#header.fixed-header.shown
 		animation: showheader 1s ease
 		top: 0px
 	#sidebar-normal
@@ -330,14 +334,14 @@ a#sidebar-toggle
 	max-height: 114px
 .inline-img
 	max-width: 100%
+
 .mymce-container
 	min-height: 640px
 	width: 100%
 	#input-body
 		width: 100%
 		display: inline-block
-		overflow-wrap: auto
-		word-wrap: auto
+
 .edit-only
 	display: none
 .edit-hidden
@@ -366,6 +370,14 @@ a#sidebar-toggle
 			color: gray
 			font-size: 14px
 
+#modal-cust
+	width: 100%
+	position: absolute
+	z-index: 999
+	background: white
+	top: 0px
+	left: 0px
+	display: none
 
 .news-style
 	height: 289px

@@ -179,7 +179,10 @@ MongoClient.connectAsync(url).then(function(db) {
             findAllAsync('people', defaultSorter()),
             findAllAsync('research', defaultSorter()),
         ];
-        /* GET home page. */
+        router.get('/m', function(req, res) {
+                res.render('mce');
+            })
+            /* GET home page. */
         router.get('/', function(req, res, next) {
             fs.readFile(aboutHtml, 'utf8', (err, data) => {
                 if (err) console.log(err);
@@ -203,6 +206,7 @@ MongoClient.connectAsync(url).then(function(db) {
                 });
             })
         });
+
         router.get('/edit?', function(req, res, next) {
             console.log(req.query);
             var editmode;

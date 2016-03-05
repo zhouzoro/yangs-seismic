@@ -7,13 +7,13 @@ form#frm(method="post" data-type='evt' action="/tinymce" enctype="multipart/form
 		.title.ui.transparent.input
 			input#input-title.title(name="title" rows="1" autofocus required placeholder="输入标题" value= doc ? doc.title : '')
 	#date_src
-		.ui.transparent.input Date:
+		.ui.transparent.input= 'Date: '
 			input#input-date(type="date" name="date" value=doc ? doc.date : '2016-01-01')
 		.ui.transparent.input
 			input#input-source(type="text" name="source" placeholder="输入文章/资料来源" required value= doc ? doc.source : '')
 	#frm-body
 		.mymce-container
-			#input-body!= doc ? doc.body : 'details'
+			#input-body!= doc ? doc.body : '<br>'
 		//textarea#input-body(name='body' rows='20' required onload='mce()')
 	#att
 		input#input-att(type='text' name='att' hidden)
@@ -34,5 +34,7 @@ form#frm(method="post" data-type='evt' action="/tinymce" enctype="multipart/form
 		i.icon.file.image.outline
 	#btn-att.ui.labeled.icon.button.basic.blue.small 附件
 		i.icon.attach
+	#btn-cancel.ui.labeled.icon.button.basic.teal.small 取消
+		i.icon.remove
 #tips tips:
 	p 可直接拖放插入图片

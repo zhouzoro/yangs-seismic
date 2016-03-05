@@ -1,8 +1,17 @@
+.mce-toolbar-grp.mce-container.mce-panel.mce-stack-layout-item.mce-first {
+  border: 1px solid #A7CDCC;
+}
+
+.mce-toolbar-grp.mce-container.mce-panel.mce-abs-layout-item.mce-first.mce-last {
+  border: 1px solid #A7CDCC;
+}
+
 #ul_title {
   padding: 5px 5px 20px 20px;
 }
 
 .title {
+  padding: 12px 0px;
   font-size: 24px;
   line-height: 150%;
   width: 100%;
@@ -10,7 +19,7 @@
 }
 
 #date_src {
-  margin: 5px;
+  padding: 0px 22px;
 }
 
 #app.upload-att {
@@ -19,11 +28,12 @@
 
 #ops {
   padding: 8px;
+  position: fixed;
+  bottom: 4px;
 }
 
 #frm-body {
-  border: 1px solid lightgray;
-  padding: 24px;
+  padding: 8px 20px;
   border-radius: 3px;
 }
 

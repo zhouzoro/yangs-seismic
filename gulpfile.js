@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
     del = require('del');
+var babel = require("gulp-babel");
 
 gulp.task('default', ['clean'], function() {
     gulp.start('styles', 'scripts', 'images');
@@ -20,7 +21,10 @@ gulp.task('styles', function() {
     return sass('public/stylesheets/*.sass', {
             style: 'expanded'
         })
-        .pipe(autoprefixer('last 2 version'))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(gulp.dest('public/stylesheets'))
         .pipe(rename({
             suffix: '.min'
@@ -33,10 +37,11 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-    return gulp.src('public/javascripts/raw/*.js')
+    return //gulp.src('public/javascripts/main.js')
         //.pipe(jshint('.jshintrc'))
         //.pipe(jshint.reporter('default'))
-        .pipe(concat('main.js'))
+        //.pipe(
+        babel()
         .pipe(gulp.dest('public/javascripts'))
         .pipe(rename({
             suffix: '.min'
@@ -62,7 +67,7 @@ gulp.task('images', function() {
 });
 gulp.task('person', function() {
     return gulp.src('public/stylesheets/person.css')
-         .pipe(rename({
+        .pipe(rename({
             suffix: '.min'
         }))
         .pipe(cssnano())
@@ -77,22 +82,22 @@ gulp.task('clean', function() {
 
 gulp.task('watch', function() {
 
-  // Watch .sass files
-  gulp.watch('public/stylesheets/*.sass', ['styles']);
-  // Watch person.css
-  gulp.watch('public/stylesheets/person.css', ['person']);
+    // Watch .sass files
+    gulp.watch('public/stylesheets/*.sass', ['styles']);
+    // Watch person.css
+    gulp.watch('public/stylesheets/person.css', ['person']);
 
-  // Watch .js files
-  gulp.watch('public/javascripts/raw/*.js', ['scripts']);
+    // Watch .js files
+    gulp.watch('public/javascripts/main.js', ['scripts']);
 
-  // Watch image files
-  //gulp.watch('public/images/*', ['images']);
+    // Watch image files
+    //gulp.watch('public/images/*', ['images']);
 
 });
 
 gulp.task('watch-styles', function() {
 
-  // Watch .scss files
-  gulp.watch('public/stylesheets/*.sass', ['styles']);
+    // Watch .scss files
+    gulp.watch('public/stylesheets/*.sass', ['styles']);
 
 });

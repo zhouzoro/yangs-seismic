@@ -1,0 +1,18 @@
+extends layout
+block content
+	#mymce()
+		#image-manager.container(v-for='(index, img) in imgs')
+			.img-box.col-xs-4.col-sm-4.col-md-4.col-lg-3
+				.img-loader {{img.progress}}
+				img(src='{{ img.src }}')
+		#att-manager.container(v-for='(index, att) in atts')
+			.att-box.col-xs-4.col-sm-4.col-md-4.col-lg-3
+				.att-loader {{att.progress}}
+				att(src='{{ att.src }}')
+		#edit-content
+			#edit-title
+				.ui.input.trasparent
+					input(placeholder='title please')
+			#edit-body write down you salts
+				.ui.input.trasparent
+					input(placeholder='title please')
