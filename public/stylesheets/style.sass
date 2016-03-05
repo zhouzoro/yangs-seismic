@@ -17,12 +17,6 @@ html.ios
 	-webkit-overflow-scrolling: touch
 html.ios,html.ios body
 	height: initial !important
-@media (min-width: 999px)
-	#header
-		color: gray
-		height: $header-height
-		border-bottom: 1px solid lightgray
-		overflow: hidden
 
 #body
 	padding: 0px
@@ -51,69 +45,6 @@ html.ios,html.ios body
 		top: -54px
 	to
 		top: 0px
-@media (max-width: 999px)
-	//#header-container
-		//padding: 0px
-	#top-indicator
-		position: relative
-		top: 60px
-	header#header
-		width: 100%
-		top: 0px
-		padding: 0px
-		background: white
-		transition: all 0.8s ease-in-out
-		a#sidebar-toggle
-			z-index: 100
-			display: inline-block
-			position: absolute
-			padding: 8px
-			font-size: 36px
-			cursor: pointer
-		.custom-header
-			padding: 2px
-			.site-title
-				padding: 8px
-				margin: 0px
-				text-align: center
-			.logo
-				text-align: center
-			.my-navbar
-				display: none
-		.header-images
-			display: none
-	//#header-container.normal
-	header#header.normal
-		height: 162px
-		background: white
-		.custom-header
-			padding: 2px
-			.logo
-				text-align: center
-	//#header-container.fixed
-	header#header.fixed-header
-		position: fixed
-		z-index: 99
-		top: 0px
-		height: 54px
-		background: #DDC5DE
-		box-shadow: 0px 12px 24px -16px rgba(190,120,190,0.9)
-		.custom-header
-			padding: 2px
-			.logo
-				display: none
-	//#header-container.fixed.hidden
-	header#header.fixed-header.hidden
-		animation: showheader 1s ease 0s 1 reverse
-		top: -54px
-	//#header-container.fixed.shown
-	header#header.fixed-header.shown
-		animation: showheader 1s ease
-		top: 0px
-	#sidebar-normal
-		display: none
-	.card.background-card
-		padding: 25px 4px 25px 24px
 #body-loader
 	margin-left: auto
 	margin-right: auto
@@ -121,18 +52,6 @@ html.ios,html.ios body
 	top: 24px
 	z-index: 999
 
-@media (max-width: 768px)
-	#article
-		#d_title
-			padding: 12px 24px
-		.meta
-			font-size: 13px
-			label
-				padding: 4px 12px 4px 2px
-		.main-body
-			padding: 8px 12px 24px 14px
-	.card.background-card
-		padding: 25px 4px 25px 24px
 #sidebar-normal
 	background: rgba(255,255,255,0.5)
 .ui.vertical.menu
@@ -546,3 +465,90 @@ footer
 		a.item
 			font-size: 12px
 			color: lightgray
+
+@media (min-width: 999px)
+	#header
+		color: gray
+		height: $header-height
+		border-bottom: 1px solid lightgray
+		overflow: hidden
+
+@media (max-width: 999px)
+	//#header-container
+		//padding: 0px
+	#top-indicator
+		position: relative
+		top: 60px
+	header#header
+		width: 100%
+		top: 0px
+		padding: 0px
+		background: white
+		transition: all 0.8s ease-in-out
+		a#sidebar-toggle
+			z-index: 100
+			display: inline-block
+			position: absolute
+			padding: 8px
+			font-size: 36px
+			cursor: pointer
+		.custom-header
+			padding: 2px
+			.site-title
+				padding: 8px
+				margin: 0px
+				text-align: center
+			.logo
+				text-align: center
+			.my-navbar
+				display: none
+		.header-images
+			display: none
+	//#header-container.normal
+	header#header.normal
+		height: 162px
+		background: white
+		.custom-header
+			padding: 2px
+			.logo
+				text-align: center
+	//#header-container.fixed
+	header#header.fixed-header
+		position: fixed
+		z-index: 99
+		top: 0px
+		height: 54px
+		background: #DDC5DE
+		box-shadow: 0px 12px 24px -16px rgba(190,120,190,0.9)
+		.custom-header
+			padding: 2px
+			.logo
+				display: none
+	//#header-container.fixed.hidden
+	header#header.fixed-header.hidden
+		animation: showheader 1s ease 0s 1 reverse
+		top: -54px
+	//#header-container.fixed.shown
+	header#header.fixed-header.shown
+		animation: showheader 1s ease
+		top: 0px
+	#sidebar-normal
+		display: none
+	.card.background-card
+		padding: 25px 4px 25px 24px
+
+@media (max-width: 768px)
+	#main-content
+		padding: 0px
+	#article.edithidden
+		#d_title
+			padding: 12px 24px
+		.article-meta
+			font-size: 13px
+			padding: 4px 0px
+			label
+				padding: 4px 12px 4px 2px
+		.main-body
+			padding: 8px 4px 24px 4px
+	.card.background-card
+		padding: 25px 4px 25px 24px

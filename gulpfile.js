@@ -38,6 +38,9 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
     return gulp.src('public/javascripts/main.js')
+        .pipe(rename({
+            suffix: '.babeled'
+        }))
         .pipe(babel())
         .pipe(gulp.dest('public/javascripts'))
         .pipe(rename({
