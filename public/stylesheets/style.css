@@ -404,16 +404,17 @@ a#sidebar-toggle {
     transform: translateY(0);
   }
 }
-#article #d_title {
+#article.edit-hidden #d_title {
   padding: 24px 36px;
 }
-#article .meta {
+#article.edit-hidden .article-meta {
   font-size: 13px;
+  padding: 4px 34px;
 }
-#article .meta label {
+#article.edit-hidden .article-meta label {
   padding: 4px 24px 4px 2px;
 }
-#article .main-body {
+#article.edit-hidden .main-body {
   padding: 8px 24px 34px 34px;
 }
 

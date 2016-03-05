@@ -4,11 +4,11 @@ block content
 	include edit
 	#article.edit-hidden(data-id= doc._id data-type= doctype)
 		h2#d_title= doc.title
-		.meta
-				if doc.date
-					label#d_date= doc.date
-				if doc.source
-					strong#d_source= "By: " + doc.source
+		.article-meta
+			if doc.date
+				label#d_date= doc.date
+			if doc.source
+				strong#d_source= "By: " + doc.source
 		.main-body!= doc.body
 	if editmode
 		.edit-only
