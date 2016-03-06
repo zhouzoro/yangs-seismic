@@ -258,6 +258,21 @@ a#sidebar-toggle
 			text-align: center
 .inline-img
 	max-width: 100%
+.expand-transition
+	position: absolute
+	z-index: 9999
+	margin: auto
+	background: white
+	border-radius: 50%
+	width: 1px
+	height: 1px
+	animation: expand 0.6s, fade 0.4s ease 0.4s
+@keyframes expand
+	to
+		width: 2000px
+@keyframes fade
+	to
+		background: transparent
 
 .mymce-container
 	min-height: 640px

@@ -163,27 +163,27 @@ MongoClient.connectAsync(url).then(function(db) {
             }
         }
         var defaultFilter = function() {
-            return {
-                selector: {
-                    type: 'news'
-                },
-                skip: 0,
-                limit: 6,
-                sorter: defaultSorter()
+                return {
+                    selector: {
+                        type: 'news'
+                    },
+                    skip: 0,
+                    limit: 6,
+                    sorter: defaultSorter()
+                }
             }
-        }
-        var allDataOp = [
-            findAllAsync('news', defaultSorter()),
-            findAllAsync('event', defaultSorter()),
-            findAllAsync('project', defaultSorter()),
-            findAllAsync('people', defaultSorter()),
-            findAllAsync('research', defaultSorter()),
-        ];
             /* GET home page. */
         router.get('/', function(req, res, next) {
             fs.readFile(aboutHtml, 'utf8', (err, data) => {
                 if (err) console.log(err);
 
+                var allDataOp = [
+                    findAllAsync('news', defaultSorter()),
+                    findAllAsync('event', defaultSorter()),
+                    findAllAsync('project', defaultSorter()),
+                    findAllAsync('people', defaultSorter()),
+                    findAllAsync('research', defaultSorter()),
+                ];
                 Promise.all(allDataOp).then(function(val) {
                     console.log(val);
                     fs.writeJson('/home/web/projects/running/yangs-seismic/yangs-seismic-master/public/temp.json', val, (err, data) => {
@@ -210,6 +210,14 @@ MongoClient.connectAsync(url).then(function(db) {
             if (req.query.editor === 'zhang_fan' && req.query.key === 'yangs_seismic_lab_2016') {
                 editmode = true;
             }
+
+                var allDataOp = [
+                    findAllAsync('news', defaultSorter()),
+                    findAllAsync('event', defaultSorter()),
+                    findAllAsync('project', defaultSorter()),
+                    findAllAsync('people', defaultSorter()),
+                    findAllAsync('research', defaultSorter()),
+                ];
             fs.readFile(aboutHtml, 'utf8', (err, data) => {
                 if (err) console.log(err);
 

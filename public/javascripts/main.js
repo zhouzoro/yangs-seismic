@@ -228,9 +228,10 @@ function initMce(selector, docId) {
     });
 }
 $('.add-btn').click(function() {
+	var transloader = $('<div>').attr('class','expand-transition');
+	$(this).append(transloader);
     var targetUrl = $(this).data('url');
     var uploadType = $(this).data('type');
-    console.log(targetUrl);
     $.get(targetUrl, function(res) {
         $('#modal-cust').find('.container').html(res);
         $('#btn-cancel').click(function() {
@@ -238,9 +239,10 @@ $('.add-btn').click(function() {
             $('#modal-cust').hide('fast');
             $('#modal-cust').find('.container').html('');
         });
-        $('#modal-cust').show('fast');
-        $('#body').hide();
+        $('#modal-cust').show('slow');
+        $('#body').hide('slow');
         initUploadOf(uploadType);
+        transloader.remove();
         $('#edit-pic').click(uploadPic);
     });
 });
