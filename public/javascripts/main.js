@@ -1,6 +1,6 @@
 'use strict';
 
-$(document).ready(function () {
+$(document).ready(function() {
 
     Cookies.remove('editmode');
     if ($('.edit-controls') && $('.edit-controls')[0]) {
@@ -8,17 +8,17 @@ $(document).ready(function () {
             expires: 1
         });
     }
-    $('#sidebar-hidden').find('.item.nav-link').click(function () {
+    $('#sidebar-hidden').find('.item.nav-link').click(function() {
         $('.sidebar').sidebar('hide');
     });
-    $('.content-module').each(function (i, el) {
+    $('.content-module').each(function(i, el) {
         if (checkVisible(el)) {
             $(el).addClass("already-visible");
         }
     });
     showScrollTop();
     changeHeaderOrNot();
-    $(document).scroll(function () {
+    $(document).scroll(function() {
         showScrollTop();
         scrollStatus.recordScroll();
         contentAnimate();
@@ -27,7 +27,7 @@ $(document).ready(function () {
 });
 
 function contentAnimate() {
-    $('.content-module').each(function (i, el) {
+    $('.content-module').each(function(i, el) {
         if (checkVisible(el) && !$(el).hasClass("already-visible")) {
             $(el).addClass("already-visible");
             if (scrollStatus.direction === 'down') {
@@ -109,12 +109,12 @@ function checkVisible(elm, evalType) {
     var vpH = $(window).height(),
 
 
-    // Viewport Height
-    st = $(window).scrollTop(),
+        // Viewport Height
+        st = $(window).scrollTop(),
 
 
-    // Scroll Top
-    y = $(elm).offset().top,
+        // Scroll Top
+        y = $(elm).offset().top,
         elementHeight = $(elm).height();
 
     if (evalType === 'visible') return y < vpH + st && y > st - elementHeight;
@@ -127,7 +127,7 @@ function scrollTo(eleId) {
         scrollTop: $(eleId).offset().top
     }, '500');
 }
-$('.edit-controls').each(function () {
+$('.edit-controls').each(function() {
     var _this = this;
 
     var editControl = $(this);
@@ -136,14 +136,14 @@ $('.edit-controls').each(function () {
         var editor = $(this).parent().find('.editable');
         console.log(editor);
         editor.addClass('editing edit-disabled');
-        $(this).find('.edit-btn').click(function () {
+        $(this).find('.edit-btn').click(function() {
             $(_this).find('.edit-btn').hide();
             $(_this).find('.save-btn').show();
-            $(_this).find('.save-btn').click(function () {
+            $(_this).find('.save-btn').click(function() {
                 console.log(1);
                 if (editControl.data('type') == 'about') {
                     var data = { html: tinymce.activeEditor.save() };
-                    $.post('/change/about', data, function (res) {
+                    $.post('/change/about', data, function(res) {
                         console.log(res);
                         document.location.reload(true);
                     });
@@ -156,7 +156,7 @@ $('.edit-controls').each(function () {
     } else if ($(this).parent().find('.edit-only') && $(this).parent().find('.edit-only')[0]) {
         var editor = $(this).parent().find('.edit-only');
         console.log(editor);
-        $(this).find('.edit-btn').click(function () {
+        $(this).find('.edit-btn').click(function() {
             $(_this).find('.edit-btn').hide();
             $(_this).find('.save-btn').show();
             editor.css('display', 'inline-block');
@@ -164,11 +164,11 @@ $('.edit-controls').each(function () {
             initUploadOf(editControl.data('type'), editControl.data('id'));
         });
     }
-    $(this).find('.delete-btn').click(function () {
+    $(this).find('.delete-btn').click(function() {
         $('#loader').modal('show');
         var loader = $('#loader').find('.loader');
         loader.text('ing!');
-        $.post('/delete', { _id: editControl.data('id'), doctype: editControl.data('type') }, function (res) {
+        $.post('/delete', { _id: editControl.data('id'), doctype: editControl.data('type') }, function(res) {
             if (res.url) {
                 loader.text('done and done!');
                 window.location = res.url;
@@ -197,6 +197,7 @@ function initMce(selector, docId) {
     tinymce.init({
         selector: selector,
         skin: 'mymce1',
+        language: 'zh_CN',
         content_css: '/stylesheets/mce.min.css',
         inline: inline,
         plugins: 'table contextmenu autoresize',
@@ -226,13 +227,13 @@ function initMce(selector, docId) {
         statusbar: false
     });
 }
-$('.add-btn').click(function () {
+$('.add-btn').click(function() {
     var targetUrl = $(this).data('url');
     var uploadType = $(this).data('type');
     console.log(targetUrl);
-    $.get(targetUrl, function (res) {
+    $.get(targetUrl, function(res) {
         $('#modal-cust').find('.container').html(res);
-        $('#btn-cancel').click(function () {
+        $('#btn-cancel').click(function() {
             $('#body').show();
             $('#modal-cust').hide('fast');
             $('#modal-cust').find('.container').html('');
@@ -254,12 +255,12 @@ function uploadPic() {
     }).css({
         'display': 'none',
         'position': 'absolute'
-    }).change(function () {
+    }).change(function() {
 
         if (this.files && this.files[0]) {
             var reader = new FileReader();
 
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 img.attr('src', e.target.result);
             };
 
@@ -275,7 +276,7 @@ function uploadPic() {
             fileUploadReq.withCredentials = false;
             fileUploadReq.open('POST', '/images');
 
-            fileUploadReq.onload = function () {
+            fileUploadReq.onload = function() {
                 var json = JSON.parse(fileUploadReq.responseText);
                 console.log(json.location);
                 img.attr('src', json.location);
@@ -305,26 +306,26 @@ function Att() {
     this.source = '';
     this.path = '';
     this.progress = '0%';
-    this.updateProgress = function (oEvent) {
+    this.updateProgress = function(oEvent) {
         _this2.progress = computProgress(oEvent);
     };
     var fileUploadReq = new XMLHttpRequest();
     fileUploadReq.withCredentials = false;
     fileUploadReq.open('POST', '/files');
 
-    fileUploadReq.onload = function () {
+    fileUploadReq.onload = function() {
         var json = JSON.parse(fileUploadReq.responseText);
         _this2.path = json.location;
     };
     fileUploadReq.upload.addEventListener("progress", this.updateProgress, false);
-    this.uploadFile = function (ele) {
+    this.uploadFile = function(ele) {
         _this2.name = ele.files[0].name;
         var form = $(ele).parent('.frmfile')[0];
         var formData = new FormData(form);
         fileUploadReq.send(formData);
         $('.temp-input').remove();
     };
-    this.abort = function () {
+    this.abort = function() {
         fileUploadReq.abort();
     };
 }
@@ -334,7 +335,7 @@ function initManeger() {
         atts: {}
     };
     var attCount = 0;
-    e.addAtt = function () {
+    e.addAtt = function() {
         attCount++;
         var attname = 'att' + attCount;
         var newAtt = new Att();
@@ -345,7 +346,7 @@ function initManeger() {
         }).css({
             'display': 'none',
             'position': 'absolute'
-        }).change(function () {
+        }).change(function() {
             if (this.files && this.files[0]) {
                 newAtt.uploadFile(this);
             }
@@ -354,9 +355,9 @@ function initManeger() {
         tempImgInput.click();
         return newAtt;
     };
-    e.wrapUp = function (atts) {
+    e.wrapUp = function(atts) {
         var html = '';
-        _.forEach(atts, function (att, index) {
+        _.forEach(atts, function(att, index) {
             index++;
             html += '<p>附件.' + index + '： <a href="' + att.path + '" download="' + att.name + '">' + att.name + '</a>' + '</p>';
         });
@@ -383,17 +384,17 @@ function initUploadOf(type, docId) {
                 }
             }
         });
-        $('#btn-img').click(function () {
+        $('#btn-img').click(function() {
             var tempImgInput = $('<input>').attr({
                 'type': 'file',
                 'class': 'temp-input'
             }).css({
                 'display': 'none',
                 'position': 'absolute'
-            }).change(function () {
+            }).change(function() {
                 if (this.files && this.files[0]) {
                     var reader = new FileReader();
-                    reader.onload = function (e) {
+                    reader.onload = function(e) {
                         tinymce.activeEditor.execCommand('insertHTML', false, '<img class="inline-img" src="' + e.target.result + '" width="80%" >');
 
                         tinymce.activeEditor.uploadImages();
@@ -407,12 +408,12 @@ function initUploadOf(type, docId) {
             tempImgInput.click();
         });
         $('#input-date').val(GetCurrentDate());
-        $('#btn-att').click(function () {
+        $('#btn-att').click(function() {
             vue.atts.push(attManager.addAtt());
         });
     }
 
-    $('#btn-upload').click(function () {
+    $('#btn-upload').click(function() {
         $('#loader').modal('show');
         if (type === 'people') {
             var people = $('#upload-people');
@@ -427,13 +428,14 @@ function initUploadOf(type, docId) {
                 details: tinymce.activeEditor.save()
             };
             if (docId) data.id = docId;
-            $.post('/add_people', data, function (res) {
-                if (docId) document.location.reload();else window.location = res.url;
+            $.post('/add_people', data, function(res) {
+                if (docId) document.location.reload();
+                else window.location = res.url;
             });
         } else {
             var loader = $('#loader').find('.loader');
             loader.text('uploading Images');
-            tinymce.activeEditor.uploadImages(function (success) {
+            tinymce.activeEditor.uploadImages(function(success) {
                 loader.text('wrapping together');
                 var attHtml = attManager.wrapUp(vue.atts);
                 data = {
@@ -448,9 +450,10 @@ function initUploadOf(type, docId) {
                 if (docId) data.id = docId;
                 loader.text('uploading');
                 var posturl = '/add_' + type;
-                $.post(posturl, data, function (res) {
+                $.post(posturl, data, function(res) {
                     $('#loader').modal('hide');
-                    if (docId) document.location.reload();else window.location = res.url;
+                    if (docId) document.location.reload();
+                    else window.location = res.url;
                 });
             });
         }
@@ -466,7 +469,7 @@ function GetCurrentDate() {
 
 function getQuoteText(htmlStr) {
     var p = '';
-    $(htmlStr).find('*').each(function () {
+    $(htmlStr).find('*').each(function() {
         if ($(this).text().length > 32) {
             p = $(this).text();
             return false;

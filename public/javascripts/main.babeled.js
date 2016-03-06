@@ -197,6 +197,7 @@ function initMce(selector, docId) {
     tinymce.init({
         selector: selector,
         skin: 'mymce1',
+        language: 'zh_CN',
         content_css: '/stylesheets/mce.min.css',
         inline: inline,
         plugins: 'table contextmenu autoresize',
