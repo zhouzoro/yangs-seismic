@@ -2,4 +2,5 @@
 if editmode
 	-home = '/edit?editor=zhang_fan&key=yangs_seismic_lab_2016'
 each item, index in menu
+	a.item.nav-link(href='/' + item.id class= (doctype == item.id || !doctype && item.id == '') ? 'selected' : false)
 		span= item.name
