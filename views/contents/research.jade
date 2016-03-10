@@ -1,19 +1,22 @@
-#research.custom-container.container-fluid
-	h2
-		label research
-	if research && research[0]
-		each rsh, index in research
-			.research.col-xs-6.col-sm-4.col-md-3
+extends ../layout
+block content
+	.custom-container.container-fluid
+		h2
+			span.title-icon #
+			span Research
+		if research && research[0]
+			each rsh, index in researchs
+				.research.col-xs-6.col-sm-4.col-md-3
+					.card-box
+						.image
+							img(src=rsh.cover)
+						.content
+							a.header= rsh.title
+							.meta
+								span.date= rsh.date
+							p.description= rsh.quote
+		if editmode
+			.research.col-xs-6.col-sm-4.col-md-3.edit-add
 				.card-box
-					.image
-						img(src=rsh.cover)
-					.content
-						a.header= rsh.title
-						.meta
-							span.date= rsh.date
-						p.description= rsh.quote
-	if editmode
-		.research.col-xs-6.col-sm-4.col-md-3.edit-add
-			.card-box
-				.add-btn(data-url='/add_research'  data-type='research')
-					i.fa.fa-plus-square
+					.add-btn(data-url='/add_research'  data-type='research')
+						i.fa.fa-plus-square

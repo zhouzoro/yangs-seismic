@@ -1,19 +1,23 @@
-#event.custom-container.container-fluid
-	h2
-		label event
-	if event && event[0]
-		each evt, index in event
-			.event.content-module.col-xs-6.col-sm-4.col-md-3
+extends ../layout
+
+block content
+	#event.custom-container.container-fluid
+		h2
+			span.title-icon #
+			span Event
+		if event && event[0]
+			each evt, index in event
+				.event.content-module.col-xs-6.col-sm-4.col-md-3
+					.card-box
+						.image
+							img(src=evt.cover)
+						.content
+							a.header= evt.title
+							.meta
+								span.date= evt.date
+							p.description= evt.quote
+		if editmode
+			.event.content-module.col-xs-6.col-sm-4.col-md-3.edit-add
 				.card-box
-					.image
-						img(src=evt.cover)
-					.content
-						a.header= evt.title
-						.meta
-							span.date= evt.date
-						p.description= evt.quote
-	if editmode
-		.event.content-module.col-xs-6.col-sm-4.col-md-3.edit-add
-			.card-box
-				.add-btn(data-url='/add_event' data-type='event')
-					i.fa.fa-plus-square
+					.add-btn(data-url='/add_event' data-type='event')
+						i.fa.fa-plus-square

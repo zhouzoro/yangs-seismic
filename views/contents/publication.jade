@@ -1,0 +1,50 @@
+extends ../layout
+block content
+	.custom-container.container-fluid
+		h2
+			span.title-icon #
+			soan Publication
+		if publication && publication[0]
+			ol.publication
+				each doc, index in publication
+					li
+						include edit
+						.edit-hidden
+							p=  doc.txt
+								if doc.path && doc.path !== ''
+									a.download-icon(href= doc.path download= doc.name) pdf download
+										i.fa.fa-download
+						if editmode
+							.edit-only
+								.ui.transparent.input
+									input.att-index(type="number" placeholder="排序" v-model='refe.index' value=doc.index)
+								.ui.transparent.input
+									input.att-txt(type="text" placeholder="文献条目" v-model='refe.txt' value=doc.txt)
+								.ui.transparent.input
+									input.att-source(type="text" placeholder="作者" v-model='refe.source' value=doc.source)
+		if editmode
+			#app-r
+				//uploading a reference record takes:
+				//1. An index to sort in order;
+				//2. the text this reference is displayed, call it txt;
+				//3. author(s) of this reference, call it source;
+				//3. the path of attachment, if included, this field is done automatically after upload a file;
+				//4. the filename, same solution above, call it name.
+				.refe.ui.divided(v-for='(index, refe) in refes')
+					button.ui.icon.button.red.small.basic(v-on:click='remove(refe)')
+						i.icon.trash
+					.ui.transparent.input
+						input.att-index(type="number" placeholder="排序" v-model='refe.index')
+					.ui.transparent.input
+						input.att-txt(type="text" placeholder="标题" v-model='refe.txt')
+					.ui.transparent.input
+						input.att-source(type="text" placeholder="作者" v-model='refe.source')
+					.ui.transparent.input
+						input.att-name(type="text" placeholder="文件名" v-model='refe.name')
+					.ui.bottom.attched.progress.tiny.gray
+						.bar(v-bind:style='{ width: refe.progress, background: refe.progress == "100%" ? "#008800" : "#000088"}')
+			#ops
+				#btn-upload.ui.labeled.icon.button.teal.small 提交
+					i.icon.send.outline
+				#btn-add.ui.labeled.icon.button.blue.small 添加条目
+					i.icon.add.circle

@@ -33,6 +33,7 @@ var logErr = function(err) {
     });
 };
 var aboutHtml = path.join(__dirname, '/../views/contents/about.html');
+var vacanciesHtml = path.join(__dirname, '/../views/contents/vacancies.html');
 
 /**
  * middleware function to log info
@@ -53,7 +54,7 @@ function importData(coll) {
     shell.exec('mongoimport --db yss --port 65123 --jsonArray --collection ' + coll + ' --file /home/web/projects/running/yangs-seismic/yangs-seismic-master/' + coll + '-0301.json');
 }
 
-function saveFile(req, res, ftype) {
+function saveFile(req, res, ftype, fixedName) {
     var uDir = path.join(__dirname, '/../public/', ftype);
     var form = new formidable.IncomingForm({
         uploadDir: uDir
@@ -68,10 +69,12 @@ function saveFile(req, res, ftype) {
     form.on('file', function(name, file) {
         var tempPath = file.path;
         var fileName = Date.now() + file.name;
-        var newPath = uDir + '/' + fileName;
+        console.log(fixedName)
+        var filename = fixedName ? fixedName : fileName;
+        var newPath = uDir + '/' + filename;
         fs.rename(tempPath, newPath);
         res.json({
-            location: '/' + ftype + '/' + fileName
+            location: '/' + ftype + '/' + filename
         });
     });
     form.on('error', function(err) {
@@ -90,30 +93,8 @@ router.post('/files', function(req, res, next) {
     saveFile(req, res, 'files');
 });
 
-router.get('/add_people', function(req, res, next) {
-    var uploadpJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadp.jade'));
-    var html = uploadpJade();
-    res.send(html);
-});
-router.get('/add_news', function(req, res, next) {
-    var uploadprojJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadproj.jade'));
-    var html = uploadprojJade();
-    res.send(html);
-});
-router.get('/add_event', function(req, res, next) {
-    var uploadprojJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadproj.jade'));
-    var html = uploadprojJade();
-    res.send(html);
-});
-router.get('/add_project', function(req, res, next) {
-    var uploadprojJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadproj.jade'));
-    var html = uploadprojJade();
-    res.send(html);
-});
-router.get('/add_research', function(req, res, next) {
-    var uploadprojJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadproj.jade'));
-    var html = uploadprojJade();
-    res.send(html);
+router.post('/logo', function(req, res, next) {
+    saveFile(req, res, 'images', 'logo.jpg');
 });
 MongoClient.connectAsync(url).then(function(db) {
         console.log('mongoDB connected!');
@@ -146,8 +127,18 @@ MongoClient.connectAsync(url).then(function(db) {
             return new Promise(function(fulfill, reject) {
 
                 tempcoll.findAsync({}).then(function(cursor) {
+                    if (collname == 'publication') {
+                        var tempSorter = [
+                            ['index', -1]
+                        ];
+                        tempSorter.push(sorter);
+                        sorter = tempSorter;
+                    }
+                    return cursor.sort(sorter)
+                }).then(function(cursor) {
                     return cursor.toArrayAsync()
                 }).then(function(docs) {
+
                     docs = _.sortBy(docs, sorter.iteratee).reverse();
                     fulfill(docs);
                     //console.log(docs);
@@ -157,32 +148,34 @@ MongoClient.connectAsync(url).then(function(db) {
             })
         }
         var defaultSorter = function() {
-            return {
-                iteratee: 'date',
-                order: 'desc'
-            }
+            return [
+                'date', -1
+            ]
         }
         var defaultFilter = function() {
-                return {
-                    selector: {
-                        type: 'news'
-                    },
-                    skip: 0,
-                    limit: 6,
-                    sorter: defaultSorter()
-                }
+            return {
+                selector: {
+                    type: 'news'
+                },
+                skip: 0,
+                limit: 6,
+                sorter: defaultSorter()
             }
-            /* GET home page. */
+        }
+
+        function isEdit(req) {
+            return req.cookies.editmode === 'right on' ? true : false
+        }
+        /* GET home page. */
         router.get('/', function(req, res, next) {
             fs.readFile(aboutHtml, 'utf8', (err, data) => {
                 if (err) console.log(err);
 
                 var allDataOp = [
                     findAllAsync('news', defaultSorter()),
-                    findAllAsync('event', defaultSorter()),
-                    findAllAsync('project', defaultSorter()),
-                    findAllAsync('people', defaultSorter()),
                     findAllAsync('research', defaultSorter()),
+                    findAllAsync('teaching', defaultSorter()),
+                    findAllAsync('people', defaultSorter())
                 ];
                 Promise.all(allDataOp).then(function(val) {
                     console.log(val);
@@ -191,10 +184,9 @@ MongoClient.connectAsync(url).then(function(db) {
                     });
                     res.render('contents/index', {
                         news: val[0],
-                        event: val[1],
-                        project: val[2],
+                        research: val[1],
+                        teaching: val[2],
                         people: val[3],
-                        research: val[4],
                         about: data
                     });
                 }).catch(function(err) {
@@ -204,6 +196,88 @@ MongoClient.connectAsync(url).then(function(db) {
             })
         });
 
+        function getDetailOf(req, res, type) {
+            Promise.resolve(convertId(req.query._id))
+                .then(function(id) {
+                    var project = db.collection(type);
+                    project.findOneAsync({ _id: id }).then(function(doc) {
+                        var template = (type == 'publication') ? 'publication' : (type == 'people') ? 'onep' : 'article';
+                        res.render('contents/' + template, {
+                            doc: doc,
+                            doctype: type,
+                            editmode: isEdit(req)
+                        });
+                    })
+                }).catch(function(err) {
+                    res.send(err);
+                    logErr(err);
+                });
+        }
+        var needDataFromDB = ['research', 'publication', 'teaching', 'people', 'news'];
+        _.forEach(needDataFromDB, function(val, index) {
+            router.get('/' + val, function(req, res, next) {
+                if (req.query && req.query._id) {
+                    next();
+                } else {
+                    getPageOf(req, res, val);
+                }
+            });
+            if (val == 'people') {
+                router.get('/add_people', function(req, res, next) {
+                    var uploadpJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadp.jade'));
+                    var html = uploadpJade();
+                    res.send(html);
+                });
+            } else {
+                router.get('/add_' + val, function(req, res, next) {
+                    var uploadpJade = jade.compileFile(path.join(__dirname, '/../views/uploads/uploadproj.jade'));
+                    var html = uploadpJade();
+                    res.send(html);
+                });
+            }
+            router.get('/' + val + '?', function(req, res) {
+                getDetailOf(req, res, val);
+            });
+        });
+
+        function getPageOf(req, res, type) {
+            findAllAsync(type, defaultSorter()).then(
+                function(docs) {
+                    fs.writeJson(path.join(__dirname, '/../../temp.json'), docs, (err, data) => {
+                        if (err) logErr(err);
+                    });
+                    var data = {};
+                    data[type] = docs;
+                    data.doctype = type;
+                    data.editmode = isEdit(req);
+                    res.render('contents/' + type, data);
+                }).catch(function(err) {
+                res.send(err);
+                logErr(err);
+            });
+        }
+        router.get('/vacancies', function(req, res) {
+            fs.readFile(vacanciesHtml, 'utf8', (err, data) => {
+                if (err) console.log(err);
+                res.render('contents/vacancies', {
+                    doc: data,
+                    doctype: 'vacancies',
+                    editmode: isEdit(req)
+                });
+            })
+        })
+
+        router.get('/about', function(req, res) {
+            fs.readFile(aboutHtml, 'utf8', (err, data) => {
+                if (err) console.log(err);
+                res.render('contents/about', {
+                    doc: data,
+                    doctype: 'about',
+                    editmode: isEdit(req)
+                });
+            })
+        })
+
         router.get('/edit?', function(req, res, next) {
             console.log(req.query);
             var editmode;
@@ -211,13 +285,13 @@ MongoClient.connectAsync(url).then(function(db) {
                 editmode = true;
             }
 
-                var allDataOp = [
-                    findAllAsync('news', defaultSorter()),
-                    findAllAsync('event', defaultSorter()),
-                    findAllAsync('project', defaultSorter()),
-                    findAllAsync('people', defaultSorter()),
-                    findAllAsync('research', defaultSorter()),
-                ];
+            var allDataOp = [
+                findAllAsync('news', defaultSorter()),
+                findAllAsync('event', defaultSorter()),
+                findAllAsync('project', defaultSorter()),
+                findAllAsync('people', defaultSorter()),
+                findAllAsync('research', defaultSorter()),
+            ];
             fs.readFile(aboutHtml, 'utf8', (err, data) => {
                 if (err) console.log(err);
 
@@ -270,7 +344,7 @@ MongoClient.connectAsync(url).then(function(db) {
                         res.render('contents/onep', {
                             doc: doc,
                             doctype: 'people',
-                            editmode: req.cookies.editmode === 'right on' ? true : false
+                            editmode: isEdit(req)
                         });
                     })
                 }).catch(function(err) {
@@ -279,69 +353,18 @@ MongoClient.connectAsync(url).then(function(db) {
                 });
         });
 
-        router.get('/event?', function(req, res) {
-            Promise.resolve(convertId(req.query._id))
-                .then(function(id) {
-                    var event = db.collection('event');
-                    event.findOneAsync({ _id: id }).then(function(doc) {
-                        res.render('contents/article', {
-                            doc: doc,
-                            doctype: 'event',
-                            editmode: req.cookies.editmode === 'right on' ? true : false
-                        });
-                    })
-                }).catch(function(err) {
-                    res.send(err);
-                    logErr(err);
+        router.get('/vitae', function(req, res) {
+            var people = db.collection('people');
+            people.findOneAsync({ name: 'Hong-feng YANG 楊宏峰' }).then(function(doc) {
+                res.render('contents/onep', {
+                    doc: doc,
+                    doctype: 'vitae',
+                    editmode: isEdit(req)
                 });
-        });
-        router.get('/project?', function(req, res) {
-            Promise.resolve(convertId(req.query._id))
-                .then(function(id) {
-                    var project = db.collection('project');
-                    project.findOneAsync({ _id: id }).then(function(doc) {
-                        res.render('contents/article', {
-                            doc: doc,
-                            doctype: 'project',
-                            editmode: req.cookies.editmode === 'right on' ? true : false
-                        });
-                    })
-                }).catch(function(err) {
-                    res.send(err);
-                    logErr(err);
-                });
-        });
-        router.get('/reseach?', function(req, res) {
-            Promise.resolve(convertId(req.query._id))
-                .then(function(id) {
-                    var reseach = db.collection('reseach');
-                    reseach.findOneAsync({ _id: id }).then(function(doc) {
-                        res.render('contents/article', {
-                            doc: doc,
-                            doctype: 'reseach',
-                            editmode: req.cookies.editmode === 'right on' ? true : false
-                        });
-                    })
-                }).catch(function(err) {
-                    res.send(err);
-                    logErr(err);
-                });
-        });
-        router.get('/news?', function(req, res) {
-            Promise.resolve(convertId(req.query._id))
-                .then(function(id) {
-                    var reseach = db.collection('news');
-                    reseach.findOneAsync({ _id: id }).then(function(doc) {
-                        res.render('contents/article', {
-                            doc: doc,
-                            doctype: 'news',
-                            editmode: req.cookies.editmode === 'right on' ? true : false
-                        });
-                    })
-                }).catch(function(err) {
-                    res.send(err);
-                    logErr(err);
-                });
+            }).catch(function(err) {
+                res.send(err);
+                logErr(err);
+            });
         });
 
         function findByIdAsync(coll, id) {
@@ -351,24 +374,19 @@ MongoClient.connectAsync(url).then(function(db) {
         /**
          * [simply get the data from mongodb and render the view of the about page]
          */
-        router.get('/about', function(req, res) {
-            reseach.findOneAsync({ _id: id }).then(function(doc) {
-                console.log(doc);
-                res.render('contents/article', {
-                    doc: doc,
-                    doctype: 'reseach',
-                    editmode: req.cookies.editmode === 'right on' ? true : false
-                });
-            })
-            fs.readFile(__dirname + '/../public/about.md', 'utf8', (err, data) => {
-                if (err) console.log(err);
-                html = md.render(data);
-                res.send(html);
-            })
-        });
+
         router.post('/change/about', function(req, res) {
             fs.writeFile(aboutHtml, req.body.html, 'utf8', (err) => {
                 if (err) throw err;
+                res.send('It\'s saved!');
+                console.log('It\'s saved!');
+            });
+        });
+
+        router.post('/change/vacancies', function(req, res) {
+            fs.writeFile(vacanciesHtml, req.body.html, 'utf8', (err) => {
+                if (err) throw err;
+                res.send('It\'s saved!');
                 console.log('It\'s saved!');
             });
         });
@@ -437,6 +455,13 @@ MongoClient.connectAsync(url).then(function(db) {
         router.post('/add_people', function(req, res) {
             uploadDoc(res, 'people', req.body);
         });
+
+        router.post('/add_publication', function(req, res) {
+            uploadDoc(res, 'publication', req.body);
+        });
+        router.post('/add_teaching', function(req, res) {
+            uploadDoc(res, 'teaching', req.body);
+        });
         router.post('/add_project', function(req, res) {
             uploadDoc(res, 'project', req.body);
         });
@@ -457,6 +482,7 @@ MongoClient.connectAsync(url).then(function(db) {
             if (doc.id) {
                 var docId = convertId(doc.id);
                 console.log(doc.id + '--------------updating--------------' + docId);
+                console.log(doc);
                 tempColl.updateOne({ _id: docId }, { $set: doc }, function(err, r) {
                     res.send({
                         url: '/' + doctype + '?_id=' + r.insertedId

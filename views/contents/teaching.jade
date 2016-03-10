@@ -1,0 +1,24 @@
+extends ../layout
+block content
+	.custom-container.container-fluid
+		h2
+			span.title-icon #
+			span Teaching
+		if teaching && teaching[0]
+			each nw, index in teaching
+				.news.news-style.content-module.col-xs-6.col-sm-4.col-md-3
+					img.background.image(src=nw.cover)
+					.content
+						.header= nw.title
+						.meta
+							span.date= nw.date
+						.description= nw.quote
+						a.arrow(href='/teaching?_id=' + nw._id)
+							.stick
+							.point
+							.wall
+		if editmode
+			.news.edit-add.content-module.col-xs-6.col-sm-4.col-md-3
+				.card-box
+					.add-btn(data-url='/add_teaching' data-type='teaching')
+						i.fa.fa-plus-square

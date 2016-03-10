@@ -5,12 +5,12 @@
 form#frm(method="post" data-type='evt' action="/tinymce" enctype="multipart/form-data")
 	#ul_title
 		.title.ui.transparent.input
-			input#input-title.title(name="title" rows="1" autofocus required placeholder="输入标题" value= doc ? doc.title : '')
+			input#input-title.title(name="title" rows="1" autofocus required placeholder="标题" value= doc ? doc.title : '')
 	#date_src
 		.ui.transparent.input= 'Date: '
 			input#input-date(type="date" name="date" value=doc ? doc.date : '2016-01-01')
 		.ui.transparent.input
-			input#input-source(type="text" name="source" placeholder="输入文章/资料来源" required value= doc ? doc.source : '')
+			input#input-source(type="text" name="source" placeholder="文章/资料来源" required value= doc ? doc.source : '')
 	#frm-body
 		.mymce-container
 			#input-body!= doc ? doc.body : '<br>'

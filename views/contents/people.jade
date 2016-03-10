@@ -1,84 +1,33 @@
-#people.box-container.custom-container.container-fluid
-	h2
-		label people
-	-var prof = [];
-	-var pdoc = [];
-	-var grad = [];
-	-var ugd = [];
-	if people && people[0]
-		each pp, index in people
-			if pp.degree == 'professor'
-				-prof.push(pp);
-			else if pp.degree == 'post-doc'
-				-pdoc.push(pp);
-			else if pp.degree == 'graduate student'
-				-grad.push(pp);
-			else if pp.degree == 'undergraduate student'
-				-ugd.push(pp);
-	if prof && prof[0]
-		.people-group.container-fluid
-			.group-label professor
-			each pp, index in prof
-				.people.content-module.col-xs-6.col-sm-4.col-md-3
-					.card-box
-						.image
-							img.media-object.img-circle.center-block(src= pp.picture)
-						.content
-							a.header(href='/people?_id=' + pp._id)= pp.name
-							.meta
-								span.label= pp.title
-	if pdoc && pdoc[0]
-		.people-group.container-fluid
-			.group-label post-doc
-			each pp, index in pdoc
-				.people.content-module.col-xs-6.col-sm-4.col-md-3
-					.card-box
-						.image
-							img.media-object.img-circle.center-block(src= pp.picture)
-						.content
-							a.header(href='/people?_id=' + pp._id)= pp.name
-							.meta
-								span.label= pp.title
-	if grad && grad[0]
-		.people-group.container-fluid
-			.group-label graduate student
-			each pp, index in grad
-				.people.content-module.col-xs-6.col-sm-4.col-md-3
-					.card-box
-						.image
-							img.media-object.img-circle.center-block(src= pp.picture)
-						.content
-							a.header(href='/people?_id=' + pp._id)= pp.name
-							.meta
-								span.label= pp.title
-	if ugd && ugd[0]
-		.people-group.container-fluid
-			.group-label undergraduate student
-			each pp, index in ugd
-				.people.content-module.col-xs-6.col-sm-4.col-md-3
-					.card-box
-						.image
-							img.media-object.img-circle.center-block(src= pp.picture)
-						.content
-							a.header(href='/people?_id=' + pp._id)= pp.name
-							.meta
-								span.label= pp.title
-	if editmode
-		if people && people[0]
-			.people-group.container-fluid
-				.group-label all
-				each pp, index in people
-					.people.content-module.col-xs-6.col-sm-4.col-md-3
-						.card-box
-							.image
-								img.media-object.img-circle.center-block(src= pp.picture)
-							.content
-								a.header(href='/people?_id=' + pp._id)= pp.name
-								.meta
-									span.label= pp.title
+extends ../layout
 
-	if editmode
-		.people.content-module.col-xs-6.col-sm-4.col-md-3.edit-add
-			.card-box
-				.add-btn(data-url='/add_people' data-type='people')
-					i.fa.fa-plus-square
+block content
+	.custom-container.container-fluid
+		h2
+			span.title-icon #
+			soan People
+		mixin peopleCard(pp)
+			.people.content-module.col-xs-6.col-sm-4.col-md-3
+				.card-box
+					.image
+						img.media-object.img-circle.center-block(src= pp.picture)
+					.content
+						a.header(href='/people?_id=' + pp._id)= pp.name
+						.meta
+							span.label= pp.title
+		-var group = [{name:'professor',member:[]},{name:'post-doc',member:[]},{name:'graduate student',member:[]},{name:'undergraduate student',member:[]}];
+		if people && people[0]
+			each pp, index in people
+				each grp, index in group
+					if grp.name == pp.degree
+						-group[index].member.push(pp);
+		each grp, index in group
+			if grp.member[0]
+				.people-group.container-fluid
+					.group-label= grp.name
+					each pp, index in grp.member
+						+peopleCard(pp)
+		if editmode
+			.people.content-module.col-xs-6.col-sm-4.col-md-3.edit-add
+				.card-box
+					.add-btn(data-url='/add_people' data-type='people')
+						i.fa.fa-plus-square

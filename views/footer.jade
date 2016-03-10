@@ -1,16 +1,14 @@
 footer.container-fluid
-	.col-md-4
+	.footer-div.site-map.col-sm-4.col-md-4
 		.label
-			label sitemap
-		a.item 首页
-		a.item 简介
-		a.item 项目
-		a.item 人员
-		a.item 活动
-		a.item FAQ
-	.col-md-4
+			label SITE MAP
+		include menu
+	.footer-div.contact.col-sm-4.col-md-4
 		.label
-			label contact us
-	.col-md-4
+			label CONTACT
+		a.about(href='/about') About
+	.footer-div.links.col-sm-4.col-md-4
 		.label
-			label useful links
+			label LINKS
+		a.out-link(href='http://www.cuhk.edu.hk/chinese' target='__blank')
+			img(src='/images/cuhk_logo_2x.png' alt='CUHK LOGO')

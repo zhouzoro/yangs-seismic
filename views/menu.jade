@@ -1,33 +1,5 @@
-//.ui.search
-
 -var home = '/'
 if editmode
 	-home = '/edit?editor=zhang_fan&key=yangs_seismic_lab_2016'
-a.item.nav-link(href=doc ? home : false onclick= doc ? false : 'ScrollTop()')
-	.icon-container
-		i.fa.fa-home
-	span Home
-a.item.nav-link(href=doc ? home + '#vita' : false onclick= doc ? false : "scrollTo('#vita')")
-	.icon-container
-		i.fa.fa-info-circle
-	span Vita
-a.item.nav-link(href=doc ? home + '#research' : false onclick= doc ? false : "scrollTo('#research')")
-	.icon-container
-		i.fa.fa-flask
-	span Research
-a.item.nav-link(href=doc ? home + '#publication' : false onclick= doc ? false : "scrollTo('#publication')")
-	.icon-container
-		i.fa.fa-newspaper-o
-	span Publication
-a.item.nav-link(href=doc ? home + '#teaching' : false onclick= doc ? false : "scrollTo('#teaching')")
-	.icon-container
-		i.fa.fa-bullseye
-	span Teaching
-a.item.nav-link(href=doc ? home + '#people' : false onclick= doc ? false : "scrollTo('#people')")
-	.icon-container
-		i.fa.fa-user
-	span People
-a.item.nav-link(href=doc ? home + '#vacancies' : false onclick= doc ? false : "scrollTo('#vacancies')")
-	.icon-container
-		i.fa.fa-flask
-	span Vacancies
+each item, index in menu
+		span= item.name

@@ -1,18 +1,7 @@
 extends ../layout
-mixin slide(doc)
-	img.slr-img.cursor-pointer(src= doc.cover ?  doc.cover : '' alt='slider image')
-	.carousel-caption
-		h3
-			a(href='/news?_id=' + doc._id)= doc.title
-		label.slabelextra
-			a.slabeldate= doc.date.substr(0, 10)
-			label.slabelsource= doc.source
 block content
 	#slr-container
 		#slr.carousel.slide(data-ride="carousel")
-			ol.carousel-indicators
-				each nw, index in news
-					li(data-target='#slr' data-slide-to=index)
 			#slr-inner.carousel-inner(role="listbox")
 				if news && news[0]
 					each nw, index in news
@@ -24,9 +13,15 @@ block content
 								+slide(nw)
 			a.left.carousel-control(href='#slr' role="button" data-slide="prev")
 			a.right.carousel-control(href='#slr' role="button" data-slide="next")
-	include about
 	include news
-	include event
-	include research
-	include project
-	include people
+	.custom-container.container-fluid
+		if editmode
+			.edit-controls(data-type='about')
+				.edit-control.edit-btn.labeled.icon.ui.button.blue edit
+					i.icon.edit
+				.edit-control.save-btn.labeled.icon.ui.button.green save
+					i.icon.save
+		h2
+			span.title-icon #
+			span About
+		#about.content.content-module.editable!= doc ? doc : about

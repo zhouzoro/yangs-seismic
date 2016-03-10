@@ -1,9 +1,10 @@
 @charset "utf-8"
 
 $font-stack: Helvetica, Tahoma, Arial, STXihei, “华文细黑”, “Microsoft YaHei”, “微软雅黑”, SimSun, “宋体”, Heiti, “黑体”, sans-serif
-$prim-color: #FFF
+$prim-color: #C90
 $header-height: 196px
 $html-bg: #F4F2F0
+$bg-color:#73216D
 
 html,body
 	//min-width: 1024px
@@ -17,12 +18,11 @@ html.ios
 	-webkit-overflow-scrolling: touch
 html.ios,html.ios body
 	height: initial !important
-
+.pusher
+	background: white
 #body
 	padding: 0px
 	background: white
-	padding-bottom: 24px
-	box-shadow: 0px -12px 24px -16px rgba(0,0,0,0.4)
 	#top-indicator
 		display: block
 		width: 1px
@@ -30,7 +30,10 @@ html.ios,html.ios body
 	padding: 0px
 
 #main-content
-	border-right: 1px solid lightgray
+	background: white
+	padding: 0px
+	min-height: 720px
+	border-left: 1px solid lightgray
 #site-path
 	padding: 8px
 	position: relative
@@ -51,6 +54,23 @@ html.ios,html.ios body
 	position: absolute
 	top: 24px
 	z-index: 999
+#header-nv
+	display: flex
+	height: 40px
+	width: 100%
+	border-bottom: 1px solid $bg-color
+	a.item
+		color: $bg-color
+		flex-grow: 1
+		text-align: center
+		padding: 4px
+		margin: 2px
+		border-left: 1px solid $bg-color
+	a.item:first-child
+		border-left: 0px
+	a.item:hover
+		background: $bg-color
+		color: $prim-color
 
 #sidebar-normal
 	background: rgba(255,255,255,0.5)
@@ -76,31 +96,79 @@ html.ios,html.ios body
 
 .full-height
 	height: 100%
-
+.att-txt
+	width: 100%
+	display: block
 a#sidebar-toggle
 	display: none
-.custom-header
-	padding: 12px
-	z-index: 9
-	//border-radius: 5px
-	.logo
-		margin: auto
-		height: 48px
-	.site-title
-		margin: auto
-		padding: 12px 24px
+#header
+	.custom-header
+		padding: 12px
+		z-index: 9
+		.logo
+			margin: 2px 24px
+			height: 64px
+			overflow: hidden
+			img
+				height: 100%
+				object-fit: cover
+		.site-title
+			margin: auto
+			padding: 12px 24px
+			h1
+				color: $bg-color
+				margin: 2px 24px
+				float: right
+				font-size: 40px
+				font-family: "Matura MT Script Capitals", "Algerian"
 
+@keyframes fade-in
+	to
+		opacity: 1
+@keyframes fade-out
+	to
+		opacity: 0
+.carousel-fade
+	.carousel-inner
+		.item
+			transition-property: opacity
+			transition-duration: 2s
+		.item,
+		.active.left,
+		.active.right
+			opacity: 0
+		.active,
+		.next.left,
+		.prev.right
+			opacity: 1
+		.next,
+		.prev,
+		.active.left,
+		.active.right
+			left: 0
+			transform: translate3d(0, 0, 0)
 .header-images
 	height: $header-height
 	position: relative
 	right: 0px
 	padding: 0px
-	background-image: url('/images/000.jpg')
 	background-size: cover
 	box-shadow: inset 0px 0px 100px 0px rgba(255,255,255,0.4)
-	.filter
+	overflow: hidden
+	.img-container
 		position: absolute
 		height: $header-height
+		box-shadow: inset 24px 0px 24px -12px white
+		img.fade-images
+			position: absolute
+			width: 100%
+			height: 100%
+			object-fit: cover
+		img.fade-images.in
+			animation: fade-in 1.2s ease forwards
+		img.fade-images.out
+			animation: fade-out 1.2s ease forwards
+	.filter
 		width: 30%
 		height: 400%
 		top: calc(216px - 200%)
@@ -112,14 +180,14 @@ a#sidebar-toggle
 			position: absolute
 			left: -50%
 			height: 100%
-			background: rgba(221,220,225,1)
+			background: rgba(255,255,255,1)
 		.right
 			display: inline-block
 			position: absolute
 			left: calc(50% - 1px)
 			width: 50%
 			height: 100%
-			background: linear-gradient(to right, rgba(221,220,225,1), rgba(221,220,225,0.7), rgba(221,220,225,0.45), rgba(221,220,225,0.25), rgba(221,220,225,0.1), rgba(221,220,225,0))
+			background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0.7), rgba(255,255,255,0.45), rgba(255,255,255,0.25), rgba(255,255,255,0.1), rgba(255,255,255,0))
 
 .my-navbar
 	float: left
@@ -161,33 +229,42 @@ a#sidebar-toggle
 			left: 4px
 
 #slr-container
-	height: 540px
+	height: 420px
+	padding: 0px
+	#slr
+		padding: 0px
 	.item
-		height: 540px
-		cursor: pointer
+		height: 420px
 		img
-			margin: auto
-			min-width: 100%
-			min-height: 100%
 			object-fit: cover
-		img:hover
-			filter: blur(5px)
 		.carousel-caption
+			background: $bg-color
+			opacity: 0.7
+			color: $prim-color
 			width: 100%
 			left: 0px
 			margin: auto
-			background: rgba(0,0,0,0.5)
+			cursor: pointer
+			bottom: 0px
+			padding: 24px
+			h3
+				a
+					color: $prim-color
 
 .custom-container
-	min-height: 720px
-	padding: 0px
+	padding: 24px
 	color: black
+	background: white
 	border-top: 1px solid lightgray
 	h2
-		text-align: center
-		margin: 64px
+		text-align: left
+		margin: 24px
+		.title-icon
+			font-size: 16px
+			opacity: 0.6
+			padding: 4px
 		label
-			border: 2px solid black
+			border: 2px solid
 			border-radius: 5px
 			padding: 6px 24px
 	div
@@ -197,7 +274,7 @@ a#sidebar-toggle
 			text-align: center
 			margin: 64px
 			label
-				border: 2px solid black
+				border: 2px solid
 				border-radius: 5px
 				padding: 6px 24px
 		p
@@ -219,11 +296,36 @@ a#sidebar-toggle
 	.come-down:nth-child(odd)
 		animation-duration: 0.6s
 
+.custom-container:first-child
+	border-top: 0px
+
 @keyframes come-in
 	to
 		opacity: 1
 		transform: translateY(0)
+#vertical-nv
+	width: 100%
+	max-width: 210px
+	padding: 24px 8px
+	border: 1px solid lightgray
+	background: $bg-color
+	a.item.nav-link
+		display: block
+		color: $bg-color
+		background: white
+		padding: 8px
+		cursor: pointer
+		border-bottom: 1px solid
+	a.item.nav-link.selected
+		background: $bg-color
+		color: $prim-color
+	a.item.nav-link:hover
+		background: $bg-color
+		color: $prim-color
 
+#vertical-nv.pinned
+	position: fixed
+	top: 0px
 #article.edit-hidden
 	#d_title
 		padding: 24px 36px
@@ -285,9 +387,13 @@ a#sidebar-toggle
 	display: none
 .edit-hidden
 	display: inline-block
+.card-wrapper
+	.card
+		padding: 32px 56px
+		margin-bottom: 24px
 .card-box
 	width: 100%
-	height: 256px
+	height: 289px
 	border: 1px solid lightgray
 	border-radius: 4px
 	background: white
@@ -338,7 +444,7 @@ a#sidebar-toggle
 		padding-top: 200px
 		height: 289px
 		overflow: hidden
-		transition: all 0.4s ease-out
+		transition: all 0.3s ease-out
 		div
 			transition: all 0.4s ease-out
 		.header
@@ -400,14 +506,13 @@ a#sidebar-toggle
 	opacity: 1
 
 #scroll-top
-	background: rgba(180,120,180,0.9)
-	border-radius: 4px
+	background: $bg-color
 	height: 42px
 	padding-top: 6px
 	padding-bottom: 12px
 	transform: rotate(270deg)
 	position: fixed
-	top: 84px
+	bottom: 84px
 	right: -4px
 
 #scroll-top.in
@@ -427,22 +532,31 @@ a#sidebar-toggle
 		right: -4px
 	to
 		right: -48px
-#people
-	.people-group
-		border: 1px solid lightgray
-		.group-label
-			width: 100%
-			text-align: left
-			font-size: 18px
-			padding: 8px 4px 4px 8px
-			border-bottom: 1px solid lightgray
-		.people
-			padding: 12px
-			text-align: center
-			.card-box
-				.image
-					img.media-object.img-circle.center-block
-						object-fit: cover
+ol.publication
+	li
+		padding: 12px
+		.edit-hidden
+			vertical-align: top
+#ops
+	.ui.labeled.icon
+		box-shadow: 0px 0px 24px 0px rgba(222,222,222,0.9)
+.people-group
+	padding: 12px
+	border: 1px solid lightgray
+	.group-label
+		width: 100%
+		padding: 4px
+		text-align: left
+		font-size: 18px
+		padding: 8px 4px 4px 8px
+		border-bottom: 1px solid lightgray
+	.people
+		padding: 12px
+		text-align: center
+		.card-box
+			.image
+				img.media-object.img-circle.center-block
+					object-fit: cover
 #profile-pic
 	padding: 0px 56px 14px 0px
 	#edit-pic
@@ -467,26 +581,51 @@ a#sidebar-toggle
 			border: 2px solid white
 	img
 		object-fit: cover
+.edit-logo
+	position: absolute
+	label.btn
+		top: 16px
+		border: 2px solid black
+		cursor: pointer
 footer
-	background: #333
-	color: lightgray
+	background: $bg-color
+	color: $prim-color
 	margin-top: 24px
 	padding: 8px
-	border-top: 1px solid black
-	div
+	.footer-div
 		text-align: center
+		min-height: 124px
+		border-left: 1px solid lightgray
 		a.item
 			font-size: 12px
 			color: lightgray
+		.label
+			padding-bottom: 12px
+			border-bottom: 1px solid lightgray
+		a.out-link
+			display: inline-block
+			height: 36px
+			padding: 2px
+			img
+				height: 100%
+		a.about
+			color: lightgray
+			border-bottom: 1px solid
+	.footer-div:first-child
+		border-left: 0px
+	.site-map
+		a.item.nav-link
+			display: inline-block
+			padding: 4px 12px
+			span
+				border-bottom: 1px solid
 
 @media (min-width: 999px)
 	#header
-		color: gray
 		height: $header-height
 		border-bottom: 1px solid lightgray
 		overflow: hidden
-
-@media (max-width: 999px)
+@media (max-width: 768px)
 	//#header-container
 		//padding: 0px
 	#top-indicator
@@ -531,8 +670,8 @@ footer
 		z-index: 99
 		top: 0px
 		height: 54px
-		background: #DDC5DE
-		box-shadow: 0px 12px 24px -16px rgba(190,120,190,0.9)
+		background: gray
+		box-shadow: 0px 12px 24px -16px rgba(0,0,0,0.9)
 		.custom-header
 			padding: 2px
 			.logo
@@ -545,7 +684,7 @@ footer
 	header#header.fixed-header.shown
 		animation: showheader 1s ease
 		top: 0px
-	#sidebar-normal
+	#vertical-nv,#header-nv
 		display: none
 	.card.background-card
 		padding: 25px 4px 25px 24px
@@ -565,3 +704,10 @@ footer
 			padding: 8px 4px 24px 4px
 	.card.background-card
 		padding: 25px 4px 25px 24px
+	#slr-container
+		height: 240px
+		.item
+			height: 240px
+	.custom-container
+		h2
+			font-size: 18px

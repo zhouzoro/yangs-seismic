@@ -1,5 +1,5 @@
 //#header-container.container-fluid.normal.hidden
-header#header.full-width.normal.col-md-9.col-md-offset-3.col-lg-8.col-lg-offset-2
+header#header.full-width.normal
 	a#sidebar-toggle(onclick='toggleSidebar()')
 		i.fa.fa-bars
 	//.header-bg
@@ -7,20 +7,25 @@ header#header.full-width.normal.col-md-9.col-md-offset-3.col-lg-8.col-lg-offset-
 	-var home = '"/"'
 	if editmode
 		-home = '"/edit?editor=zhang_fan&key=yangs_seismic_lab_2016"'
-	.custom-header.col-xs-12.col-sm-12.col-md-8.col-lg-7
+	.custom-header.col-xs-12.col-sm-8.col-md-7
 		.logo
-			img.click-home(onclick='window.location=' + home)
-			|logo here
-		.site-title
-			h1.click-home(onclick='window.location=' + home) Yang's Seismic Lab
-		//.my-navbar
-			a.nav-item(href='#about') 简介
-			a.nav-item(href='#projects') 项目
-			a.nav-item(href='#people') 人员
-			a.nav-item(href='#people') 活动
-			a.nav-item(href='#people') FAQ
-	.full-height.header-images.col-xs-0.col-sm-4.col-md-4.col-lg-5
-		.filter
-			.left
-			.right
-		img(src='/images/000.jpg' hidden)
+			if editmode
+				.edit-logo.media-object.center-block
+					label.btn change
+			img.click-home(src='/images/logo.jpg' alt='logo image' onclick='window.location=' + home)
+		a.site-title.click-home(onclick='window.location=' + home)
+			h1 Yang's Seismic Lab
+	.full-height.header-images.col-xs-0.col-sm-4.col-md-5
+		.img-container
+			.carousel.slide.carousel-fade(data-ride="carousel")
+				.carousel-inner(role="listbox")
+					-var imgs = ['000.jpg','001.jpg','002.jpg']
+						each nw, index in imgs
+							if index == 0
+								.item.active
+									img.slr-img.cursor-pointer(src= '/images/' + nw alt='slider image')
+							else if index < 6
+								.item
+									img.slr-img.cursor-pointer(src= '/images/' + nw alt='slider image')
+#header-nv
+	include menu

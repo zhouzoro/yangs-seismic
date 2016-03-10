@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+	.custom-container.container-fluid
+		if editmode
+			.edit-controls(data-type='vacancies')
+				.edit-control.edit-btn.labeled.icon.ui.button.blue edit
+					i.icon.edit
+				.edit-control.save-btn.labeled.icon.ui.button.green save
+					i.icon.save
+		h2
+			span.title-icon #
+			span Vacancies
+		#vacancies.content.content-module.editable!= doc

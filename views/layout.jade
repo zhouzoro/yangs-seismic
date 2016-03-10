@@ -2,12 +2,16 @@ doctype html
 html
 	head
 		-var title = ''
+		if doctype
+			-title = doctype.toUpperCase() + ' - '
 		if doc
 			if doc.name
 				-title = doc.name
 			else if doc.title
 				-title = doc.title
 			-title = title + ' - '
+		if doctype
+			-title = doctype + ' - '
 		title= title + 'Yangs Seismic Lab'
 		meta(charset="utf-8")
 		meta(name="viewport" content="width=device-width, initial-scale=1")
@@ -18,59 +22,43 @@ html
 		link(rel='stylesheet' href='/stylesheets/upload.min.css')
 		link(rel='stylesheet', href='/stylesheets/style.min.css')
 	body
+		//use an array variable to store menu items, so changes here apllies everywhere!
+		-var menu = [{id: '',name: 'Home'}, {id: 'vitae',name: 'Curriculum Vitae'}, {id: 'research',name: 'Research'}, {id: 'publication',name: 'Publication'}, {id: 'teaching',name: 'Teaching'}, {id: 'people',name: 'People'}, {id: 'vacancies',name: 'Vacancies'}]
+		//mixin to add slid use given doc;
+		mixin slide(doc)
+			img.slr-img.cursor-pointer(src= doc.cover ?  doc.cover : '' alt='slider image')
+			.carousel-caption
+				h3
+					a(href='/news?_id=' + doc._id)= doc.title
+				label.slabelextra
+					a.slabeldate= doc.date.substr(0, 10)
+					label.slabelsource= doc.source
+
 		#sidebar-hidden.ui.sidebar.left.vertical.menu
 			include menu
 		.pusher
-			//#vertical-nav
-				.first-class
-					a.nav-item(href='#about')
-						.icon-holder
-							i.icon.radio
-						span 简介
-					a.nav-item(href='#projects')
-						.icon-holder
-							i.icon.radio.selected
-						span 项目
-					a.nav-item(href='#people')
-						.icon-holder
-							i.icon.radio.selected
-						span 人员
-					a.nav-item(href='#people')
-						.icon-holder
-							i.icon.radio.selected
-						span 活动
-					a.nav-item(href='#people')
-						.icon-holder
-							i.icon.radio
-						span FAQ
-			include header
 			#loader.ui.modal.basic
 				.content
 					.ui.text.loader Loading
-			#sidebar-normal.ui.left.fixed.vertical.menu
+			//#sidebar-normal.ui.left.fixed.vertical.menu
 				include menu
-			#body.col-md-9.col-md-offset-3.col-lg-8.col-lg-offset-2
+			#body.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2(data-edit= edimode ? true : false)
+				include header
 				#top-indicator
 				#body-loader.ui.text.loader Loading
-				if doc
-					#site-path.ui.breadcrumb
-						a.section(href='/') Home
-						.divider /
-						a.section(href='/#' + doctype)= doctype
-						.divider /
-						a.section.active= doc.name ? doc.name : doc.title
 				#main.container-fluid
-					#main-content.col-xs-12.col-sm-12.col-md-12.col-lg-12
+					.full-width.col-sm-3.col-md-2.col-lg-2
+						#vertical-nv
+							include menu
+					#main-content.col-xs-12.col-sm-9.col-md-10.col-lg-10
+						//if doc
+							#site-path.ui.breadcrumb
+								a.section(href='/') Home
+								.divider /
+								a.section(href='/' + doctype)= doctype
+								.divider /
+								a.section.active= doc.name ? doc.name : doc.title
 						block content
-					//#news.col-xs-12.col-sm-3.col-md-3.col-lg-3
-						label news links
-						ol.ui.list
-							li
-								a.item news link1
-							li
-								a.item news link2
-							li
-								a.item news link3
 				include footer
 			#scroll-top.arrow(onclick='ScrollTop()')
 				.stick
@@ -90,8 +78,9 @@ html
 			script(src='/javascripts/js.cookie.js')
 			script(src='/javascripts/bootstrap.min.js')
 			//script(src='/javascripts/vibrant.min.js')
-			script(src='/javascripts/vue.min.js')
+			if editmode
+				script(src='/javascripts/vue.min.js')
+				script(src='/tinymce/tinymce.min.js')
 			script(src='/semantic/semantic.min.js')
-			script(src='/tinymce/tinymce.min.js')
 			script(src='/javascripts/smoothscroll.js')
 			script(src='/javascripts/main.babeled.js')
