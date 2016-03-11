@@ -419,8 +419,7 @@ a#sidebar-toggle {
   width: 100%;
   max-width: 210px;
   padding: 24px 8px;
-  border: 1px solid lightgray;
-  background: #73216D;
+  border: 1px solid #73216D;
 }
 #vertical-nv a.item.nav-link {
   display: block;
@@ -435,7 +434,7 @@ a#sidebar-toggle {
   color: #C90;
 }
 #vertical-nv a.item.nav-link:hover {
-  background: #73216D;
+  border: 1px solid #73216D;
   color: #C90;
 }
 
@@ -894,6 +893,9 @@ footer .site-map a.item.nav-link span {
     padding: 8px;
     margin: 0px;
     text-align: center;
+  }
+  header#header .custom-header .site-title h1 {
+    float: center;
   }
   header#header .custom-header .logo {
     text-align: center;
