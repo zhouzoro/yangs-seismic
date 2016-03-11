@@ -307,8 +307,7 @@ a#sidebar-toggle
 	width: 100%
 	max-width: 210px
 	padding: 24px 8px
-	border: 1px solid lightgray
-	background: $bg-color
+	border: 1px solid $bg-color
 	a.item.nav-link
 		display: block
 		color: $bg-color
@@ -320,7 +319,7 @@ a#sidebar-toggle
 		background: $bg-color
 		color: $prim-color
 	a.item.nav-link:hover
-		background: $bg-color
+		border: 1px solid $bg-color
 		color: $prim-color
 
 #vertical-nv.pinned
@@ -650,6 +649,8 @@ footer
 				padding: 8px
 				margin: 0px
 				text-align: center
+				h1
+					float: center
 			.logo
 				text-align: center
 			.my-navbar
