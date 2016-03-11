@@ -11,7 +11,7 @@ block content
 						.image
 							img(src=rsh.cover)
 						.content
-							a.header= rsh.title
+							a.header(href='/research?_id=' + rsh._id)= rsh.title
 							.meta
 								span.date= rsh.date
 							p.description= rsh.quote
