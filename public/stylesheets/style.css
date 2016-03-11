@@ -865,7 +865,7 @@ footer .site-map a.item.nav-link span {
     overflow: hidden;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   #top-indicator {
     position: relative;
     top: 60px;
@@ -900,8 +900,8 @@ footer .site-map a.item.nav-link span {
   header#header .custom-header .logo {
     text-align: center;
   }
-  header#header .custom-header .my-navbar {
-    display: none;
+  header#header .custom-header .site-title h2 {
+    font-size: 28px;
   }
   header#header .header-images {
     display: none;
