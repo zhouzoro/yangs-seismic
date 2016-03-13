@@ -93,6 +93,20 @@ html.ios,html.ios body
 				padding: 8px
 		span
 			font-size: 16px
+.research
+	.title
+		h2.header
+		text-align: left
+	.content
+		.image
+			width: 100%
+			height: 256px
+			overflow: hidden
+			img
+				width: 100%
+				height: 256px
+				object-fit: cover
+		p.description
 
 .full-height
 	height: 100%
@@ -102,6 +116,9 @@ html.ios,html.ios body
 a#sidebar-toggle
 	display: none
 #header
+	height: $header-height
+	border-bottom: 1px solid lightgray
+	overflow: hidden
 	.custom-header
 		padding: 12px
 		z-index: 9
@@ -471,6 +488,7 @@ a#sidebar-toggle
 	margin-bottom: 12px
 .news-style:hover .description
 	margin-bottom: 4px
+
 .arrow
 	padding: 4px
 	height: 24px
@@ -621,14 +639,7 @@ footer
 			span
 				border-bottom: 1px solid
 
-@media (min-width: 999px)
-	#header
-		height: $header-height
-		border-bottom: 1px solid lightgray
-		overflow: hidden
 @media (max-width: 480px)
-	//#header-container
-		//padding: 0px
 	#top-indicator
 		position: relative
 		top: 60px
@@ -660,7 +671,6 @@ footer
 					font-size: 28px
 		.header-images
 			display: none
-	//#header-container.normal
 	header#header.normal
 		height: 162px
 		background: white
@@ -668,7 +678,6 @@ footer
 			padding: 2px
 			.logo
 				text-align: center
-	//#header-container.fixed
 	header#header.fixed-header
 		position: fixed
 		z-index: 99
@@ -680,11 +689,9 @@ footer
 			padding: 2px
 			.logo
 				display: none
-	//#header-container.fixed.hidden
 	header#header.fixed-header.hidden
 		animation: showheader 1s ease 0s 1 reverse
 		top: -54px
-	//#header-container.fixed.shown
 	header#header.fixed-header.shown
 		animation: showheader 1s ease
 		top: 0px
@@ -692,8 +699,6 @@ footer
 		display: none
 	.card.background-card
 		padding: 25px 4px 25px 24px
-
-@media (max-width: 768px)
 	#main-content
 		padding: 0px
 	#article.edithidden

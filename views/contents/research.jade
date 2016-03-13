@@ -7,14 +7,17 @@ block content
 		if research && research[0]
 			each rsh, index in research
 				.research.col-xs-6.col-sm-4.col-md-3
-					.card-box
-						.image
-							img(src=rsh.cover)
-						.content
-							a.header(href='/research?_id=' + rsh._id)= rsh.title
-							.meta
-								span.date= rsh.date
-							p.description= rsh.quote
+					.title
+						h2.header(href='/research?_id=' + rsh._id)= rsh.title
+					.content
+						if rsh.cover
+							.image(href='/research?_id=' + rsh._id)
+								img(src=rsh.cover)
+						p.description= rsh.quote
+							.arrow
+								.stick
+								.point
+								.wall
 		if editmode
 			.research.col-xs-6.col-sm-4.col-md-3.edit-add
 				.card-box
