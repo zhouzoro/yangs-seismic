@@ -2,10 +2,9 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs-extra');
 var path = require('path');
-
-var shell = require('shelljs');
 var _ = require('lodash');
-var Promise = require('bluebird');
+var shell = require('shell');
+var Promise = require('bluebird');//Promisify all mongo func
 var mongoDb = require('mongodb');
 Promise.promisifyAll(mongoDb);
 var MongoClient = mongoDb.MongoClient;
