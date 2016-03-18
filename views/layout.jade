@@ -52,13 +52,6 @@ html
 						#vertical-nv
 							include menu
 					#main-content.col-xs-12.col-sm-9.col-md-10.col-lg-10
-						//if doc
-							#site-path.ui.breadcrumb
-								a.section(href='/') Home
-								.divider /
-								a.section(href='/' + doctype)= doctype
-								.divider /
-								a.section.active= doc.name ? doc.name : doc.title
 						block content
 				include footer
 			#scroll-top.arrow(onclick='ScrollTop()')
