@@ -3,7 +3,7 @@ var router = express.Router();
 var fs = require('fs-extra');
 var path = require('path');
 var _ = require('lodash');
-var shell = require('shell');
+var shell = require('shelljs');
 var Promise = require('bluebird');//Promisify all mongo func
 var mongoDb = require('mongodb');
 Promise.promisifyAll(mongoDb);
